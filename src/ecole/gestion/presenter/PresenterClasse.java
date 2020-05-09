@@ -178,5 +178,4 @@ public class PresenterClasse {
             } while (true);
         }
     }
-
 }

@@ -23,6 +23,19 @@ public class Controle {
         return ok;
     }
 
+    public static boolean verifAlphabet(String ph) {
+        boolean ok = false;
+        for (int i = 0; i < ph.length(); i++) {
+            if (Character.isAlphabetic(ph.charAt(i)) == true) {
+                ok = true;
+            } else {
+                ok = false;
+                break;
+            }
+        }
+        return ok;
+    }
+
     public static boolean verifId(String matricule, String S) {
         boolean ok;
         String part1;
@@ -99,8 +112,7 @@ public class Controle {
                 System.out.println("Veuillez entrer un salaire minimum 2000€");
                 ok = false;
             }
-        }
-        else{
+        } else {
             ok = false;
         }
         return ok;
@@ -121,31 +133,28 @@ public class Controle {
         return ok;
     }
 
-    public static boolean verifAnnee(String a){
+    public static boolean verifAnnee(String a) {
         boolean ok = false;
-        if(verifInteger(a) == true){
-            if(a.length() < 4 || a.length() > 4){
+        if (verifInteger(a) == true) {
+            if (a.length() < 4 || a.length() > 4) {
                 System.out.println("Veuillez entrer une année valide");
-            }
-            else{
+            } else {
                 ok = true;
             }
-        }
-        else{
-                System.out.println("Veuillez entrer une année valide");
+        } else {
+            System.out.println("Veuillez entrer une année valide");
         }
         return ok;
     }
-    
-    public static boolean verifNbrEleve(String nbr){
+
+    public static boolean verifNbrEleve(String nbr) {
         boolean ok = false;
-        
-        if(verifInteger(nbr) == true){
+
+        if (verifInteger(nbr) == true) {
             int nombre = parseInt(nbr);
-            if(nombre < 1){
+            if (nombre < 1) {
                 System.out.println("Veuillez entrer au moins un élève ! ");
-            }
-            else{
+            } else {
                 ok = true;
             }
         }

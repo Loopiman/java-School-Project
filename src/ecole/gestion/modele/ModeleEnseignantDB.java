@@ -87,7 +87,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                         String intitule = rs.getString("INTITULE");
                         int nhs = rs.getInt("NHS");
 
-                        String sigle = rs.getString("SIGLE");
+                        String sigle = rs.getString("SIGLE_SALLE");
                         int capacite = rs.getInt("CAPACITE");
 
                         Cours c = new CoursDB(id_cours, code, intitule, nhs);
@@ -102,7 +102,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                             code = rs.getString("CODE");
                             intitule = rs.getString("INTITULE");
                             nhs = rs.getInt("NHS");
-                            sigle = rs.getString("SIGLE");
+                            sigle = rs.getString("SIGLE_SALLE");
                             capacite = rs.getInt("CAPACITE");
                             c = new CoursDB(id_cours, code, intitule, nhs);
                             s = new SalleDB(id_salle, sigle, capacite);

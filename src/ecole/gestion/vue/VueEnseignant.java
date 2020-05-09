@@ -56,9 +56,13 @@ public class VueEnseignant {
             matricule = getMsg("Entrer le matricule (exemple : E1)");
         } while (Controle.verifId(matricule, "E") == false);
 
-        nom = getMsg("Entrer le nom : ");
+        do {
+            nom = getMsg("Entrer le nom : ");
+        } while (!Controle.verifAlphabet(nom));
 
-        prenom = getMsg("Entrer le prénom : ");
+        do {
+            prenom = getMsg("Entrer le prénom : ");
+        }while(!Controle.verifAlphabet(prenom));
 
         do {
             tel = getMsg("Entrer le telephone :");

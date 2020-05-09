@@ -106,20 +106,25 @@ public class PresenterSalle {
 
     protected Salle affAll() {
         String chs;
-        List<Salle> lp = mds.readAll();
+        Set<Salle> lp = mds.readAll();
         vues.affAll(mds.readAll());
         do {
             do {
                 chs = vues.getMsg("numéro de l'élément choisi (0 pour aucun) :");
             } while (!Controle.verifInteger(chs));
             int ch = Integer.parseInt(chs);
+            System.out.println(ch);
             if (ch == 0) {
                 return null;
             }
             if (ch >= 1 && ch <= lp.size()) {
-                return lp.get(ch - 1);
+                int i = 0;
+                for (Iterator<Salle> it = lp.iterator(); it.hasNext(); i++) {
+                    if(ch-1 == i){
+                        return it.next();
+                    }
+                }
             }
         } while (true);
     }
-
 }

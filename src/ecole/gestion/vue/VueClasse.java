@@ -51,7 +51,9 @@ public class VueClasse {
             sigle = getMsg("Entrer le sigle (exemple : Cl1)");
         } while (!Controle.verifId(sigle, "Cl"));
 
-        specialite = getMsg("Entrer la spécialité");
+        do{
+            specialite = getMsg("Entrer la spécialité");
+        }while(!Controle.verifAlphabet(specialite));
 
         do {
             annee = getMsg("Entrer l'année");

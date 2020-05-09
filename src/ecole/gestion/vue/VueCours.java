@@ -46,9 +46,11 @@ public class VueCours {
 
         do {
             code = getMsg("Entrer le code (exemple : C1)");
-        } while (Controle.verifId(code, "C") == false);
+        } while (!Controle.verifId(code, "C"));
 
-        intitule = getMsg("Entrer l'intitulé");
+        do{
+            intitule = getMsg("Entrer l'intitulé");
+        }while(!Controle.verifAlphabet(intitule));
 
         do {
             nhs = getMsg("Entrer le nombre d'heures par semaine");

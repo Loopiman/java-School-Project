@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import methods.SigleComparator;
 import myconnections.DBConnection;
 
 /**
@@ -23,7 +26,7 @@ public class ModeleSalleDB implements DAOSalle {
 
     @Override
     public Salle create(Salle obj) {
-        String req1 = "insert into api_salle(sigle,capacite) values( ?,  ?)";
+        String req1 = "insert into api_salle(sigle_salle,capacite) values( ?,  ?)";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req1)) {
             pstm.setString(1, obj.getSigleSalle());
             pstm.setInt(2, obj.getCapacite());
@@ -45,7 +48,7 @@ public class ModeleSalleDB implements DAOSalle {
     public Salle read(Salle prrech) {
 
         String sigle = prrech.getSigleSalle();
-        String req = "select * from api_salle where sigle = ? order by sigle";
+        String req = "select * from api_salle where sigle_salle = ? order by sigle_salle";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);) {
             pstm.setString(1, sigle);
             try (ResultSet rs = pstm.executeQuery()) {
@@ -66,7 +69,7 @@ public class ModeleSalleDB implements DAOSalle {
     @Override
     public Salle update(Salle obj) {
         SalleDB s = (SalleDB) obj;
-        String req = "update api_salle set sigle=?,capacite=? where id_salle =  ?";
+        String req = "update api_salle set sigle_salle=?,capacite=? where id_salle =  ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
             pstm.setInt(3, s.getId_salle());
             pstm.setString(1, obj.getSigleSalle());
@@ -83,7 +86,7 @@ public class ModeleSalleDB implements DAOSalle {
 
     @Override
     public boolean delete(Salle obj) {
-        String req = "delete from api_salle where sigle= ?";
+        String req = "delete from api_salle where sigle_salle= ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
             pstm.setString(1, obj.getSigleSalle());
             int n = pstm.executeUpdate();
@@ -98,13 +101,13 @@ public class ModeleSalleDB implements DAOSalle {
     }
 
     @Override
-    public List<Salle> readAll() {
-        String req = "select * from api_salle order by sigle";
-        List<Salle> ls = new ArrayList<>();
+    public Set<Salle> readAll() {
+        String req = "select * from api_salle order by sigle_salle";
+        Set<Salle> ls = new TreeSet<Salle>(new SigleComparator());
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idsalle = rs.getInt("ID_SALLE");
-                String sigle = rs.getString("SIGLE");
+                String sigle = rs.getString("SIGLE_SALLE");
                 int capacite = rs.getInt("CAPACITE");
                 ls.add(new SalleDB(idsalle, sigle, capacite));
             }

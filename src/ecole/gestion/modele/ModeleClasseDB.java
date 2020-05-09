@@ -64,7 +64,7 @@ public class ModeleClasseDB implements DAOClasse {
                 = "select cl.id_classe, cl.sigle, cl.annee, cl.specialite, cl.nbr_eleves,"
                 + "e.id_enseignant, e.matricule, e.nom, e.prenom, e.tel, e.chargesem, e.salaire_mensu, e.date_engag,"
                 + "c.id_cours, c.code, c.intitule, c.nhs,"
-                + "s.id_salle, s.sigle, s.capacite,"
+                + "s.id_salle, s.sigle_salle, s.capacite,"
                 + "i.id_info, i.id_classe, i.id_enseignant, i.id_cours, i.id_salle"
                 + " from api_classe cl left join api_info i on cl.id_classe = i.id_classe"
                 + " left join api_enseignant e on e.id_enseignant = i.id_enseignant"
@@ -109,7 +109,7 @@ public class ModeleClasseDB implements DAOClasse {
 
                         /*----------TABLE SALLE----------*/
                         int id_salle = rs.getInt("ID_SALLE");
-                        String sigle_salle = rs.getString("SIGLE");
+                        String sigle_salle = rs.getString("SIGLE_SALLE");
                         int capacite = rs.getInt("CAPACITE");
 
                         Salle s = new SalleDB(id_salle, sigle_salle, capacite);
@@ -125,7 +125,7 @@ public class ModeleClasseDB implements DAOClasse {
 
                             /*----------TABLE SALLE----------*/
                             id_salle = rs.getInt("ID_SALLE");
-                            sigle = rs.getString("SIGLE");
+                            sigle = rs.getString("SIGLE_SALLE");
                             capacite = rs.getInt("CAPACITE");
                             id_infos = rs.getInt("ID_INFO");
                             id_cours = rs.getInt("ID_COURS");

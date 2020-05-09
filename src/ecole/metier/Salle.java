@@ -119,5 +119,4 @@ public class Salle {
         return "Salle{" + "sigleSalle=" + sigleSalle + ", capacite=" + capacite + '}';
     }
 
-
 }
