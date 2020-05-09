@@ -79,7 +79,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                 + " left join api_info i on e.id_enseignant = i.id_enseignant"
                 + " left join api_cours c on c.id_cours = i.id_cours"
                 + " left join api_salle s on s.id_salle = i.id_salle"
-                + " where e.matricule = ?";
+                + " where e.matricule = ? order by e.matricule";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);) {
 
             pstm.setString(1, matricule);
@@ -166,7 +166,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
 
     @Override
     public List<Enseignant> readAll() {
-        String req = "select * from api_enseignant";
+        String req = "select * from api_enseignant order by matricule";
         List<Enseignant> e = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {

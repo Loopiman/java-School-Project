@@ -4,6 +4,7 @@ import ecole.metier.*;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueClasse;
 import java.util.List;
+import methods.Controle;
 
 /**
  *
@@ -117,7 +118,7 @@ public class PresenterClasse {
             System.out.println("classe deja attribué");
             return;
         }*/
-        
+
         Enseignant e = pe.affAll();
         if (e == null) {
             return;
@@ -126,17 +127,17 @@ public class PresenterClasse {
         if (c == null) {
             return;
         }
-        
-        if(e.getChargeSem() < c.getNhs()){
+
+        if (e.getChargeSem() < c.getNhs()) {
             System.out.println("l'enseignant n'a pas une charge assez grande");
             return;
         }
-        
+
         Salle s = ps.affAll();
         if (s == null) {
             return;
         }
-        if(s.getCapacite() < cl.getNbrEleves()){
+        if (s.getCapacite() < cl.getNbrEleves()) {
             System.out.println("salle pas assez grande");
             return;
         }
@@ -150,7 +151,9 @@ public class PresenterClasse {
         }
 
     }
-        protected Classe affAll() {
+
+    protected Classe affAll() {
+        String chs;
         List<Classe> lp = mdcl.readAll();
         if (lp.isEmpty()) {
             System.out.println("vide");
@@ -158,7 +161,9 @@ public class PresenterClasse {
         } else {
             vuecl.affAll(mdcl.readAll());
             do {
-                String chs = vuecl.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+                do {
+                    chs = vuecl.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+                } while (!Controle.verifInteger(chs));
                 int ch = Integer.parseInt(chs);
                 if (ch == 0) {
                     return null;

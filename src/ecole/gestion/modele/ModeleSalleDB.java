@@ -45,7 +45,7 @@ public class ModeleSalleDB implements DAOSalle {
     public Salle read(Salle prrech) {
 
         String sigle = prrech.getSigleSalle();
-        String req = "select * from api_salle where sigle = ?";
+        String req = "select * from api_salle where sigle = ? order by sigle";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);) {
             pstm.setString(1, sigle);
             try (ResultSet rs = pstm.executeQuery()) {
@@ -99,7 +99,7 @@ public class ModeleSalleDB implements DAOSalle {
 
     @Override
     public List<Salle> readAll() {
-        String req = "select * from api_salle";
+        String req = "select * from api_salle order by sigle";
         List<Salle> ls = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {

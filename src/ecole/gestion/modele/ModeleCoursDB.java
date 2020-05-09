@@ -66,7 +66,7 @@ public class ModeleCoursDB implements DAOCours {
     @Override
     public Cours read(Cours erech) {
         String code = erech.getCode();
-        String req = "select * from api_cours where code = ?";
+        String req = "select * from api_cours where code = ? order by code";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);) {
 
             pstm.setString(1, code);
@@ -83,7 +83,6 @@ public class ModeleCoursDB implements DAOCours {
                 }
             }
         } catch (Exception e) {
-            System.out.println("okokokok");
             return null;
         }
     }
@@ -109,7 +108,7 @@ public class ModeleCoursDB implements DAOCours {
 
     @Override
     public List<Cours> readAll() {
-        String req = "select * from api_cours";
+        String req = "select * from api_cours order by code";
         List<Cours> lc = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {

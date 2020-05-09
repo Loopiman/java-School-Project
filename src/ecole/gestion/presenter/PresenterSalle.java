@@ -5,6 +5,7 @@ import ecole.gestion.vue.VueSalle;
 import ecole.metier.Salle;
 
 import java.util.*;
+import methods.Controle;
 
 /**
  *
@@ -14,8 +15,8 @@ public class PresenterSalle {
 
     private DAOSalle mds = new ModeleSalle();
     private VueSalle vues = new VueSalle();
-    
-    public PresenterSalle(DAOSalle mds, VueSalle vues){
+
+    public PresenterSalle(DAOSalle mds, VueSalle vues) {
         this.mds = mds;
         this.vues = vues;
     }
@@ -100,10 +101,13 @@ public class PresenterSalle {
     }
 
     protected Salle affAll() {
+        String chs;
         List<Salle> lp = mds.readAll();
         vues.affAll(mds.readAll());
         do {
-            String chs = vues.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+            do {
+                chs = vues.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+            } while (!Controle.verifInteger(chs));
             int ch = Integer.parseInt(chs);
             if (ch == 0) {
                 return null;
@@ -113,8 +117,8 @@ public class PresenterSalle {
             }
         } while (true);
     }
-    
-    protected void affSalle(){
+
+    protected void affSalle() {
         vues.affAll(mds.readAll());
     }
 }

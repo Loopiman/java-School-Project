@@ -4,6 +4,7 @@ import ecole.gestion.vue.VueEnseignant;
 import ecole.metier.Enseignant;
 import ecole.gestion.modele.DAOEnseignant;
 import java.util.*;
+import methods.Controle;
 
 /**
  *
@@ -99,6 +100,7 @@ public class PresenterEnseignant {
     }
 
     protected Enseignant affAll() {
+        String chs;
         List<Enseignant> lp = mde.readAll();
         if (lp.isEmpty()) {
             System.out.println("vide");
@@ -106,7 +108,9 @@ public class PresenterEnseignant {
         } else {
             vuee.affAll(mde.readAll());
             do {
-                String chs = vuee.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+                do {
+                    chs = vuee.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+                } while (!Controle.verifInteger(chs));
                 int ch = Integer.parseInt(chs);
                 if (ch == 0) {
                     return null;
@@ -117,8 +121,8 @@ public class PresenterEnseignant {
             } while (true);
         }
     }
-    
-    protected void affEnseignant(){
+
+    protected void affEnseignant() {
         vuee.affAll(mde.readAll());
     }
 

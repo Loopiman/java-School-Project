@@ -4,6 +4,7 @@ import ecole.metier.Cours;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueCours;
 import java.util.*;
+import methods.Controle;
 
 /**
  *
@@ -14,7 +15,7 @@ public class PresenterCours {
     private DAOCours mdc;
     private VueCours vuec;
 
-    public PresenterCours(DAOCours mdc, VueCours vuec){
+    public PresenterCours(DAOCours mdc, VueCours vuec) {
         this.mdc = mdc;
         this.vuec = vuec;
     }
@@ -98,10 +99,13 @@ public class PresenterCours {
     }
 
     protected Cours affAll() {
+        String chs;
         List<Cours> lp = mdc.readAll();
         vuec.affAll(mdc.readAll());
         do {
-            String chs = vuec.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+            do {
+                chs = vuec.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+            } while (!Controle.verifInteger(chs));
             int ch = Integer.parseInt(chs);
             if (ch == 0) {
                 return null;
@@ -111,8 +115,8 @@ public class PresenterCours {
             }
         } while (true);
     }
-    
-    protected void affCours(){
+
+    protected void affCours() {
         vuec.affAll(mdc.readAll());
     }
 }
