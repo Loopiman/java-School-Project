@@ -87,7 +87,7 @@ public class ModeleClasseDB implements DAOClasse {
                 + " left join api_enseignant e on e.id_enseignant = i.id_enseignant"
                 + " left join api_cours c on c.id_cours = i.id_cours"
                 + " left join api_salle s on s.id_salle = i.id_salle"
-                + " where cl.sigle = ?";
+                + " where cl.sigle = ? order by cl.sigle";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);) {
             pstm.setString(1, sigle);
             try (ResultSet rs = pstm.executeQuery()) {
@@ -235,7 +235,7 @@ public class ModeleClasseDB implements DAOClasse {
 
     @Override
     public List<Classe> readAll() {
-        String req = "select * from api_classe";
+        String req = "select * from api_classe order by sigle";
         List<Classe> cl = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
