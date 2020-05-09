@@ -117,7 +117,7 @@ public class VueClasse {
 
     }
 
-    public void affAll(List<Classe> listeClasse) {
+    public void affAll(Set<Classe> listeClasse) {
         int i = 1;
         for (Classe cl : listeClasse) {
             displayMsg(i + "." + cl.toString());
