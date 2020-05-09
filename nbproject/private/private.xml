@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/presenter/PresenterClasse.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/presenter/PresenterEnseignant.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/.git/config</file>
+            <file>file:/C:/Users/fabia/Desktop/java-School-Project-master/src/ecole/gestion/modele/ModeleEnseignant.java</file>
+            <file>file:/C:/Users/fabia/Desktop/java-School-Project-master/src/ecole/gestion/modele/ModeleEnseignantDB.java</file>
+            <file>file:/C:/Users/fabia/Desktop/java-School-Project-master/src/ecole/gestion/presenter/PresenterEnseignant.java</file>
+            <file>file:/C:/Users/fabia/Desktop/java-School-Project-master/src/ecole/gestion/vue/VueEnseignant.java</file>
         </group>
     </open-files>
 </project-private>

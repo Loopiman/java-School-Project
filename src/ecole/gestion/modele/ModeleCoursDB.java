@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import methods.SigleCoursComparator;
 import myconnections.DBConnection;
 
 /**
@@ -107,9 +110,9 @@ public class ModeleCoursDB implements DAOCours {
     }
 
     @Override
-    public List<Cours> readAll() {
+    public Set<Cours> readAll() {
         String req = "select * from api_cours order by code";
-        List<Cours> lc = new ArrayList<>();
+        Set<Cours> lc = new TreeSet<>(new SigleCoursComparator());
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idcours = rs.getInt("ID_COURS");

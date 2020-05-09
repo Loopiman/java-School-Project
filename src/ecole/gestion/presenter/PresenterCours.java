@@ -53,7 +53,6 @@ public class PresenterCours {
             vuec.displayMsg("erreur lors de la création du cours - doublon");
             return;
         }
-
         vuec.displayMsg("Cours créé");
     }
 
@@ -105,7 +104,7 @@ public class PresenterCours {
 
     protected Cours affAll() {
         String chs;
-        List<Cours> lp = mdc.readAll();
+        Set<Cours> lp = mdc.readAll();
         vuec.affAll(mdc.readAll());
         do {
             do {
@@ -116,7 +115,12 @@ public class PresenterCours {
                 return null;
             }
             if (ch >= 1 && ch <= lp.size()) {
-                return lp.get(ch - 1);
+                int i = 0;
+                for (Iterator<Cours> it = lp.iterator(); it.hasNext(); i++) {
+                    if(ch-1 == i){
+                        return it.next();
+                    }
+                }
             }
         } while (true);
     }

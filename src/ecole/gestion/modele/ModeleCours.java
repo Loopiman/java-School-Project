@@ -3,6 +3,7 @@ package ecole.gestion.modele;
 import java.util.*;
 import ecole.metier.Cours;
 import ecole.gestion.modele.DAOCours;
+import methods.SigleCoursComparator;
 
 /**
  *
@@ -10,7 +11,7 @@ import ecole.gestion.modele.DAOCours;
  */
 public class ModeleCours implements DAOCours{
 
-    private List<Cours> listeCours = new ArrayList();
+    private Set<Cours> listeCours = new TreeSet<>(new SigleCoursComparator());
 
     @Override
     public Cours create(Cours c) {
@@ -61,7 +62,7 @@ public class ModeleCours implements DAOCours{
     }
     
     @Override
-    public List<Cours> readAll(){
+    public Set<Cours> readAll(){
         return listeCours;
     }
 }

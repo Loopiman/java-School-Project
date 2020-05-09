@@ -106,7 +106,7 @@ public class PresenterEnseignant {
 
     protected Enseignant affAll() {
         String chs;
-        List<Enseignant> lp = mde.readAll();
+        Set<Enseignant> lp = mde.readAll();
         if (lp.isEmpty()) {
             System.out.println("vide");
             return null;
@@ -121,7 +121,12 @@ public class PresenterEnseignant {
                     return null;
                 }
                 if (ch >= 1 && ch <= lp.size()) {
-                    return lp.get(ch - 1);
+                    int i = 0;
+                    for (Iterator<Enseignant> it = lp.iterator(); it.hasNext(); i++) {
+                        if (ch - 1 == i) {
+                            return it.next();
+                        }
+                    }
                 }
             } while (true);
         }

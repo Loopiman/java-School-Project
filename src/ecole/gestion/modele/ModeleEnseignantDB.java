@@ -16,6 +16,9 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import methods.MatriculeEnseignantComparator;
 import myconnections.DBConnection;
 
 /**
@@ -163,9 +166,9 @@ public class ModeleEnseignantDB implements DAOEnseignant {
     }
 
     @Override
-    public List<Enseignant> readAll() {
+    public Set<Enseignant> readAll() {
         String req = "select * from api_enseignant order by matricule";
-        List<Enseignant> e = new ArrayList<>();
+        Set<Enseignant> e = new TreeSet<>(new MatriculeEnseignantComparator());
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int id_enseignant = rs.getInt("ID_ENSEIGNANT");
