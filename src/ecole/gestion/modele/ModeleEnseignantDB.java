@@ -54,25 +54,6 @@ public class ModeleEnseignantDB implements DAOEnseignant {
     }
 
     @Override
-    public boolean delete(Enseignant obj
-    ) {
-        String req = "delete from api_enseignant where matricule= ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-
-            pstm.setString(1, obj.getMatricule());
-            int n = pstm.executeUpdate();
-            if (n == 0) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
-            System.out.println("error :" + e);
-            return false;
-        }
-    }
-
-    @Override
     public Enseignant read(Enseignant erech) {
         String matricule = erech.getMatricule();
         String req = "select * from api_enseignant e"
@@ -162,7 +143,24 @@ public class ModeleEnseignantDB implements DAOEnseignant {
         }
     }
 
+    @Override
+    public boolean delete(Enseignant obj
+    ) {
+        String req = "delete from api_enseignant where matricule= ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
+            pstm.setString(1, obj.getMatricule());
+            int n = pstm.executeUpdate();
+            if (n == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("error :" + e);
+            return false;
+        }
+    }
 
     @Override
     public List<Enseignant> readAll() {

@@ -34,19 +34,19 @@ public class PresenterClasse {
                     ajout();
                     break;
                 case 2:
-                    recherche();
+                    affClasse();
                     break;
                 case 3:
-                    modification();
+                    recherche();
                     break;
                 case 4:
-                    suppression();
+                    modification();
                     break;
                 case 5:
-                    addInfo();
+                    suppression();
                     break;
                 case 6:
-                    affClasse();
+                    addInfo();
                     break;
                 case 7:
                     return;
@@ -64,6 +64,10 @@ public class PresenterClasse {
         }
 
         vuecl.displayMsg("Classe créé");
+    }
+
+    protected void affClasse() {
+        vuecl.affAll(mdcl.readAll());
     }
 
     public Classe recherche() {
@@ -175,7 +179,4 @@ public class PresenterClasse {
         }
     }
 
-    protected void affClasse() {
-        vuecl.affAll(mdcl.readAll());
-    }
 }

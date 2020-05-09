@@ -28,16 +28,17 @@ public class PresenterEnseignant {
                     ajout();
                     break;
                 case 2:
-                    recherche();
+                    affEnseignant();
                     break;
                 case 3:
-                    modification();
+                    recherche();
                     break;
                 case 4:
-                    suppression();
+                    modification();
                     break;
                 case 5:
-                    affEnseignant();
+                    suppression();
+                    break;
                 case 6:
                     return;
             }
@@ -54,6 +55,10 @@ public class PresenterEnseignant {
         }
 
         vuee.displayMsg("enseignant créé");
+    }
+
+    protected void affEnseignant() {
+        vuee.affAll(mde.readAll());
     }
 
     public Enseignant recherche() {
@@ -120,10 +125,6 @@ public class PresenterEnseignant {
                 }
             } while (true);
         }
-    }
-
-    protected void affEnseignant() {
-        vuee.affAll(mde.readAll());
     }
 
 }

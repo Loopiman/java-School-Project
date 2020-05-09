@@ -3,8 +3,11 @@ package ecole.gestion;
 import ecole.gestion.presenter.*;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import java.util.*;
+import myconnections.DBConnection;
 
 /**
  *
@@ -31,7 +34,17 @@ public class GestEcole {
                 mds = new ModeleSalle();
                 break;
             case 2:
-                
+                Connection dbConnect = null;
+                try {
+                    dbConnect = DBConnection.getConnection();
+                } catch (Exception e) {
+
+                }
+                if (dbConnect == null) {
+                    System.out.println("impossible de se connecter");
+                    System.exit(1);
+                }
+
                 mdcl = new ModeleClasseDB();
                 mdc = new ModeleCoursDB();
                 mde = new ModeleEnseignantDB();

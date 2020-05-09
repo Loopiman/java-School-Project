@@ -29,16 +29,16 @@ public class PresenterSalle {
                     ajout();
                     break;
                 case 2:
-                    recherche();
+                    affSalle();
                     break;
                 case 3:
-                    modification();
+                    recherche();
                     break;
                 case 4:
-                    suppression();
+                    modification();
                     break;
                 case 5:
-                    affSalle();
+                    suppression();
                     break;
                 case 6:
                     return;
@@ -56,6 +56,10 @@ public class PresenterSalle {
         }
 
         vues.displayMsg("Salle créée");
+    }
+
+    protected void affSalle() {
+        vues.affAll(mds.readAll());
     }
 
     public Salle recherche() {
@@ -118,7 +122,4 @@ public class PresenterSalle {
         } while (true);
     }
 
-    protected void affSalle() {
-        vues.affAll(mds.readAll());
-    }
 }

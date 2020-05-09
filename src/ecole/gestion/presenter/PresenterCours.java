@@ -28,16 +28,17 @@ public class PresenterCours {
                     ajout();
                     break;
                 case 2:
-                    recherche();
+                    affCours();
                     break;
                 case 3:
-                    modification();
+                    recherche();
                     break;
                 case 4:
-                    suppression();
+                    modification();
                     break;
                 case 5:
-                    affCours();
+                    suppression();
+                    break;
                 case 6:
                     return;
             }
@@ -54,6 +55,10 @@ public class PresenterCours {
         }
 
         vuec.displayMsg("Cours créé");
+    }
+
+    protected void affCours() {
+        vuec.affAll(mdc.readAll());
     }
 
     public Cours recherche() {
@@ -116,7 +121,4 @@ public class PresenterCours {
         } while (true);
     }
 
-    protected void affCours() {
-        vuec.affAll(mdc.readAll());
-    }
 }

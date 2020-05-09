@@ -29,7 +29,7 @@ public class VueEnseignant {
     public int menu() {
         int ch;
         do {
-            String chs = getMsg("1. Ajout\n2. Rechercher\n3. Modifier\n4. Supprimer\n5. Afficher les enseignants\n6. Quitter le menu\n\nVotre choix : ");
+            String chs = getMsg("1. Ajout\n2. Afficher les enseignants\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 6) {
@@ -53,7 +53,7 @@ public class VueEnseignant {
         LocalDate dateEngagement = null;
 
         do {
-            matricule = getMsg("Entrer le matricule (exemple : E1");
+            matricule = getMsg("Entrer le matricule (exemple : E1)");
         } while (Controle.verifId(matricule, "E") == false);
 
         nom = getMsg("Entrer le nom : ");
@@ -89,6 +89,11 @@ public class VueEnseignant {
 
         e = new Enseignant(matricule, nom, prenom, tel, charge, salaire, dateEngagement);
         return e;
+    }
+
+    public String read() {
+        String ns = getMsg("matricule de l'enseignant");
+        return ns;
     }
 
     public void display(Enseignant e) {
@@ -155,11 +160,6 @@ public class VueEnseignant {
                     System.out.println("choix invalide");
             }
         } while (true);
-    }
-
-    public String read() {
-        String ns = getMsg("matricule de l'enseignant");
-        return ns;
     }
 
     public void affAll(List<Enseignant> le) {

@@ -41,25 +41,8 @@ public class ModeleCoursDB implements DAOCours {
                 return read(obj);
             }
         } catch (Exception e) {
-            System.out.println("error : "+ e);
+            System.out.println("error : " + e);
             return null;
-        }
-    }
-
-    @Override
-    public boolean delete(Cours obj) {
-        String req = "delete from api_cours where code= ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-
-            pstm.setString(1, obj.getCode());
-            int n = pstm.executeUpdate();
-            if (n == 0) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
-            return false;
         }
     }
 
@@ -103,6 +86,23 @@ public class ModeleCoursDB implements DAOCours {
             return read(obj);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public boolean delete(Cours obj) {
+        String req = "delete from api_cours where code= ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+
+            pstm.setString(1, obj.getCode());
+            int n = pstm.executeUpdate();
+            if (n == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
         }
     }
 

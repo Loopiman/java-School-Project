@@ -58,23 +58,6 @@ public class ModeleClasseDB implements DAOClasse {
     }
 
     @Override
-    public boolean delete(Classe obj) {
-        String req = "delete from api_classe where sigle= ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-
-            pstm.setString(1, obj.getSigleClasse());
-            int n = pstm.executeUpdate();
-            if (n == 0) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Override
     public Classe read(Classe clrech) {
         String sigle = clrech.getSigleClasse();
         String req
@@ -200,6 +183,23 @@ public class ModeleClasseDB implements DAOClasse {
     }
 
     @Override
+    public boolean delete(Classe obj) {
+        String req = "delete from api_classe where sigle= ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+
+            pstm.setString(1, obj.getSigleClasse());
+            int n = pstm.executeUpdate();
+            if (n == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public boolean add(Classe c, Infos i) {
         String req = "insert into api_info(id_classe, id_enseignant, id_cours,id_salle) values(?,?,?,?)";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
@@ -215,8 +215,7 @@ public class ModeleClasseDB implements DAOClasse {
 
             EnseignantDB e = (EnseignantDB) i.getEnseignant();
             int ide = e.getId_enseignant();
-            
-            
+
             pstm.setInt(1, idcl);
             pstm.setInt(2, ide);
             pstm.setInt(3, idc);

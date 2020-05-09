@@ -27,7 +27,7 @@ public class VueCours {
     public int menu() {
         int ch;
         do {
-            String chs = getMsg("1. Ajout\n2. Rechercher\n3. Modifier\n4. Supprimer\n5. Afficher les cours\n6. Quitter le menu\n\nVotre choix : ");
+            String chs = getMsg("1. Ajout\n2. Afficher les cours\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 6) {
@@ -45,7 +45,7 @@ public class VueCours {
         String nhs;
 
         do {
-            code = getMsg("Entrer le code");
+            code = getMsg("Entrer le code (exemple : C1)");
         } while (Controle.verifId(code, "C") == false);
 
         intitule = getMsg("Entrer l'intitulé");
@@ -58,6 +58,11 @@ public class VueCours {
         c = new Cours(code, intitule, heureSem);
 
         return c;
+    }
+
+    public String read() {
+        String ns = getMsg("code du cours");
+        return ns;
     }
 
     public void display(Cours c) {
@@ -86,11 +91,6 @@ public class VueCours {
             }
         } while (true);
 
-    }
-
-    public String read() {
-        String ns = getMsg("code du cours");
-        return ns;
     }
 
     public void affAll(List<Cours> lc) {

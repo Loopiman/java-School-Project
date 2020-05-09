@@ -29,7 +29,7 @@ public class VueClasse {
     public int menu() {
         int ch;
         do {
-            String chs = getMsg("1. Ajout\n2. Rechercher\n3. Modifier\n4. Supprimer\n5. atribuer des classes\n6. afficher les classes\n7. Quitter le menu\nVotre choix : ");
+            String chs = getMsg("1. Ajout\n2. afficher les classes\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. atribuer des classes\n7. Quitter le menu\nVotre choix : ");
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 7) {
@@ -48,7 +48,7 @@ public class VueClasse {
         String nbrEleves;
 
         do {
-            sigle = getMsg("Entrer le sigle");
+            sigle = getMsg("Entrer le sigle (exemple : Cl1)");
         } while (!Controle.verifId(sigle, "Cl"));
 
         specialite = getMsg("Entrer la spécialité");
@@ -68,6 +68,11 @@ public class VueClasse {
         return cl;
     }
 
+    public String read() {
+        String ns = getMsg("sigle de la classe");
+        return ns;
+    }
+
     public void display(Classe cl) {
         displayMsg(cl.toString());
         if (!cl.getListeInfos().isEmpty()) {
@@ -80,8 +85,7 @@ public class VueClasse {
                     displayMsg(in.toString());
                 }
             }
-        }
-        else{
+        } else {
             System.out.println("pas d'infos");
         }
 
@@ -109,11 +113,6 @@ public class VueClasse {
             }
         } while (true);
 
-    }
-
-    public String read() {
-        String ns = getMsg("sigle de la classe");
-        return ns;
     }
 
     public void affAll(List<Classe> listeClasse) {

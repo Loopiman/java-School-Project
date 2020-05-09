@@ -27,7 +27,7 @@ public class VueSalle {
     public int menu() {
         int ch;
         do {
-            String chs = getMsg("1. Ajout\n2. Rechercher\n3. Modifier\n4. Supprimer\n5. Afficher les salles\n6. Quitter le menu\n\nVotre choix : ");
+            String chs = getMsg("1. Ajout\n2. Afficher les salles\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 6) {
@@ -44,7 +44,7 @@ public class VueSalle {
         String capacite;
 
         do {
-            sigle = getMsg("Entrer le sigle");
+            sigle = getMsg("Entrer le sigle (exemple : S1)");
         } while (!Controle.verifId(sigle, "S"));
 
         do {
@@ -55,6 +55,11 @@ public class VueSalle {
         s = new Salle(sigle, nbr);
 
         return s;
+    }
+
+    public String read() {
+        String ns = getMsg("sigle de la salle");
+        return ns;
     }
 
     public void display(Salle s) {
@@ -83,11 +88,6 @@ public class VueSalle {
             }
         } while (true);
 
-    }
-
-    public String read() {
-        String ns = getMsg("sigle de la salle");
-        return ns;
     }
 
     public void affAll(List<Salle> ls) {
