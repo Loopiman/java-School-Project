@@ -10,7 +10,7 @@ import ecole.gestion.modele.DAOCours;
  */
 public class ModeleCours implements DAOCours{
 
-    private List<Cours> listeCours = new ArrayList();
+    private Set<Cours> listeCours = new HashSet();
 
     @Override
     public Cours create(Cours c) {
@@ -61,7 +61,7 @@ public class ModeleCours implements DAOCours{
     }
     
     @Override
-    public List<Cours> readAll(){
+    public Set<Cours> readAll(){
         return listeCours;
     }
 }

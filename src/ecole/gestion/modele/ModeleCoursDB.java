@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import myconnections.DBConnection;
 
 /**
@@ -107,9 +109,9 @@ public class ModeleCoursDB implements DAOCours {
     }
 
     @Override
-    public List<Cours> readAll() {
+    public Set<Cours> readAll() {
         String req = "select * from api_cours order by code";
-        List<Cours> lc = new ArrayList<>();
+        Set<Cours> lc = new HashSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idcours = rs.getInt("ID_COURS");

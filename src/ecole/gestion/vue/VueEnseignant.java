@@ -166,7 +166,7 @@ public class VueEnseignant {
         } while (true);
     }
 
-    public void affAll(List<Enseignant> le) {
+    public void affAll(Set<Enseignant> le) {
         int i = 1;
         for (Enseignant e : le) {
             displayMsg(i + "." + e.toString());
