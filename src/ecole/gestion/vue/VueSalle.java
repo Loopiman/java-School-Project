@@ -90,7 +90,7 @@ public class VueSalle {
 
     }
 
-    public void affAll(List<Salle> ls) {
+    public void affAll(Set<Salle> ls) {
         int i = 1;
         for (Salle s : ls) {
             displayMsg(i + "." + s.toString());

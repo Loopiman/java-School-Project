@@ -18,5 +18,5 @@ public interface DAOSalle {
 
     Salle update(Salle srech);
 
-    List<Salle> readAll();
+    Set<Salle> readAll();
 }

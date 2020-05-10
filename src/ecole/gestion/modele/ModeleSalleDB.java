@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -101,9 +102,9 @@ public class ModeleSalleDB implements DAOSalle {
     }
 
     @Override
-    public List<Salle> readAll() {
+    public Set<Salle> readAll() {
         String req = "select * from api_salle order by sigle_salle";
-        List<Salle> ls = new ArrayList();
+        Set<Salle> ls = new HashSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idsalle = rs.getInt("ID_SALLE");
