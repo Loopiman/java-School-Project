@@ -106,7 +106,7 @@ public class PresenterSalle {
 
     protected Salle affAll() {
         String chs;
-        Set<Salle> lp = mds.readAll();
+        List<Salle> lp = mds.readAll();
         vues.affAll(mds.readAll());
         do {
             do {
@@ -118,12 +118,7 @@ public class PresenterSalle {
                 return null;
             }
             if (ch >= 1 && ch <= lp.size()) {
-                int i = 0;
-                for (Iterator<Salle> it = lp.iterator(); it.hasNext(); i++) {
-                    if(ch-1 == i){
-                        return it.next();
-                    }
-                }
+                return lp.get(ch - 1);
             }
         } while (true);
     }

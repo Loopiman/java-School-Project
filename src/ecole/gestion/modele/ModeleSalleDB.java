@@ -101,9 +101,9 @@ public class ModeleSalleDB implements DAOSalle {
     }
 
     @Override
-    public Set<Salle> readAll() {
+    public List<Salle> readAll() {
         String req = "select * from api_salle order by sigle_salle";
-        Set<Salle> ls = new TreeSet<Salle>(new SigleComparator());
+        List<Salle> ls = new ArrayList();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idsalle = rs.getInt("ID_SALLE");

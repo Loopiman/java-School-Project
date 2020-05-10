@@ -22,9 +22,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import methods.SigleClasseComparator;
 import myconnections.DBConnection;
 
 /**
@@ -230,15 +227,15 @@ public class ModeleClasseDB implements DAOClasse {
                 return true;
             }
         } catch (Exception ex) {
-            System.out.println("Impossible d'insérer les infos - Doublons (ou erreur externe)");
+            System.out.println("Impossible d'insérer les infos - Doublons (ou erreur externe)" + ex);
             return false;
         }
     }
 
     @Override
-    public Set<Classe> readAll() {
+    public List<Classe> readAll() {
         String req = "select * from api_classe order by sigle";
-        Set<Classe> cl = new TreeSet<>(new SigleClasseComparator());
+        List<Classe> cl = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int id_classe = rs.getInt("ID_CLASSE");

@@ -16,9 +16,6 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import methods.MatriculeEnseignantComparator;
 import myconnections.DBConnection;
 
 /**
@@ -160,15 +157,15 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("error :" + e);
+            System.out.println("erreur : L'enseignant est attribué à un info");
             return false;
         }
     }
 
     @Override
-    public Set<Enseignant> readAll() {
+    public List<Enseignant> readAll() {
         String req = "select * from api_enseignant order by matricule";
-        Set<Enseignant> e = new TreeSet<>(new MatriculeEnseignantComparator());
+        List<Enseignant> e = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int id_enseignant = rs.getInt("ID_ENSEIGNANT");

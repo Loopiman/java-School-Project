@@ -3,7 +3,6 @@ package ecole.gestion.modele;
 import ecole.metier.Enseignant;
 import ecole.metier.Infos;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -20,6 +19,6 @@ public interface DAOEnseignant {
     Enseignant update(Enseignant erech);
     
     
-    Set<Enseignant> readAll();
+    List<Enseignant> readAll();
     
 }

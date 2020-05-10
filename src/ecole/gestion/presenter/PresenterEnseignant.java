@@ -97,8 +97,6 @@ public class PresenterEnseignant {
                 boolean res = mde.delete(e);
                 if (res) {
                     vuee.displayMsg("Enseignant supprimé");
-                } else {
-                    vuee.displayMsg("erreur lors de la suppression");
                 }
             }
         }
@@ -106,7 +104,7 @@ public class PresenterEnseignant {
 
     protected Enseignant affAll() {
         String chs;
-        Set<Enseignant> lp = mde.readAll();
+        List<Enseignant> lp = mde.readAll();
         if (lp.isEmpty()) {
             System.out.println("vide");
             return null;
@@ -121,12 +119,7 @@ public class PresenterEnseignant {
                     return null;
                 }
                 if (ch >= 1 && ch <= lp.size()) {
-                    int i = 0;
-                    for (Iterator<Enseignant> it = lp.iterator(); it.hasNext(); i++) {
-                        if (ch - 1 == i) {
-                            return it.next();
-                        }
-                    }
+                    return lp.get(ch - 1);
                 }
             } while (true);
         }

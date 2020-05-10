@@ -3,9 +3,7 @@ package ecole.gestion.presenter;
 import ecole.metier.*;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueClasse;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import methods.Controle;
 
 /**
@@ -126,6 +124,7 @@ public class PresenterClasse {
         }*/
 
         Enseignant e = pe.affAll();
+        
         if (e == null) {
             return;
         }
@@ -147,7 +146,9 @@ public class PresenterClasse {
             System.out.println("salle pas assez grande");
             return;
         }
+        
         Infos i = new Infos(c, s, e);
+        System.out.println(i.toString());
         boolean add = e.getListeInfos().add(i);
         boolean res = mdcl.add(cl, i);
         if (res) {
@@ -160,7 +161,7 @@ public class PresenterClasse {
 
     protected Classe affAll() {
         String chs;
-        Set<Classe> lp = mdcl.readAll();
+        List<Classe> lp = mdcl.readAll();
         if (lp.isEmpty()) {
             System.out.println("vide");
             return null;
@@ -175,12 +176,7 @@ public class PresenterClasse {
                     return null;
                 }
                 if (ch >= 1 && ch <= lp.size()) {
-                    int i = 0;
-                for (Iterator<Classe> it = lp.iterator(); it.hasNext(); i++) {
-                    if(ch-1 == i){
-                        return it.next();
-                    }
-                }
+                    return lp.get(ch - 1);
                 }
             } while (true);
         }

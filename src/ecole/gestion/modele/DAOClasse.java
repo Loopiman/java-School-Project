@@ -3,7 +3,6 @@ package ecole.gestion.modele;
 import ecole.metier.Classe;
 import ecole.metier.Infos;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -21,6 +20,6 @@ public interface DAOClasse {
 
     public boolean add(Classe cl, Infos i);
 
-    Set<Classe> readAll();
+    List<Classe> readAll();
 
 }

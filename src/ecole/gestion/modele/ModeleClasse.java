@@ -4,9 +4,6 @@ import ecole.metier.Classe;
 import ecole.metier.Infos;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import methods.SigleClasseComparator;
 
 /**
  *
@@ -14,7 +11,8 @@ import methods.SigleClasseComparator;
  */
 public class ModeleClasse implements DAOClasse{
 
-    private Set<Classe> listeClasse = new TreeSet<>(new SigleClasseComparator());
+    private List<Classe> listeClasse = new ArrayList();
+
     @Override
     public Classe create(Classe cl) {
         for (Classe classe : listeClasse) {
@@ -65,7 +63,7 @@ public class ModeleClasse implements DAOClasse{
     }
     
     @Override
-    public Set<Classe> readAll(){
+    public List<Classe> readAll(){
         return listeClasse;
     }
     

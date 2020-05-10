@@ -2,7 +2,6 @@ package ecole.gestion.modele;
 
 import java.util.*;
 import ecole.metier.Enseignant;
-import methods.MatriculeEnseignantComparator;
 
 /**
  *
@@ -10,7 +9,7 @@ import methods.MatriculeEnseignantComparator;
  */
 public class ModeleEnseignant implements DAOEnseignant {
 
-    private Set<Enseignant> listeEnseignant  = new TreeSet<>(new MatriculeEnseignantComparator());
+    private List<Enseignant> listeEnseignant = new ArrayList();
 
     @Override
     public Enseignant create(Enseignant e) {
@@ -64,7 +63,7 @@ public class ModeleEnseignant implements DAOEnseignant {
     }
     
     @Override
-    public Set<Enseignant> readAll(){
+    public List<Enseignant> readAll(){
         return listeEnseignant;
     }
     

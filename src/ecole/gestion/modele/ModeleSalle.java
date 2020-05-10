@@ -10,7 +10,7 @@ import methods.SigleComparator;
  */
 public class ModeleSalle implements DAOSalle{
 
-    private Set<Salle> listeSalle = new TreeSet<>(new SigleComparator());
+    private List<Salle> listeSalle = new ArrayList();
     
     @Override
     public Salle create(Salle s) {
@@ -59,7 +59,7 @@ public class ModeleSalle implements DAOSalle{
     }
     
     @Override
-    public Set<Salle> readAll(){
+    public List<Salle> readAll(){
         return listeSalle;
     }
 }

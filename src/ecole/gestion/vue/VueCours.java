@@ -95,7 +95,7 @@ public class VueCours {
 
     }
 
-    public void affAll(Set<Cours> lc) {
+    public void affAll(List<Cours> lc) {
         int i = 1;
         for (Cours c : lc) {
             displayMsg(i + "." + c.toString());
