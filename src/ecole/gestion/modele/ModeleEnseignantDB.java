@@ -79,7 +79,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                     LocalDate date_engagement = rs.getDate("DATE_ENGAG").toLocalDate();
                     Enseignant e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, chargeRest, salaire_mensu, date_engagement);
 
-                    List<Infos> li = new ArrayList<>();
+                    Set<Infos> li = new HashSet<>();
 
                     int id_infos = rs.getInt("ID_INFO");
                     if (id_infos != 0) {

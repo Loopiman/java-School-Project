@@ -51,7 +51,7 @@ public class Enseignant {
      */
     protected LocalDate dateEngagement;
 
-    protected List<Infos> listeInfos = new ArrayList();
+    protected Set<Infos> listeInfos = new HashSet();
 
     /**
      * constructeur par défaut
@@ -217,11 +217,11 @@ public class Enseignant {
         this.dateEngagement = dateEngagement;
     }
 
-    public List<Infos> getListeInfos() {
+    public Set<Infos> getListeInfos() {
         return listeInfos;
     }
 
-    public void setListeInfos(List<Infos> listeInfos) {
+    public void setListeInfos(Set<Infos> listeInfos) {
         this.listeInfos = listeInfos;
     }
 

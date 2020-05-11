@@ -85,7 +85,7 @@ public class ModeleClasseDB implements DAOClasse {
 
                     Classe cl = new ClasseDB(id_classe, sigle, annee, specialite, nbr_eleves);
 
-                    List<Infos> li = new ArrayList<>();
+                    Set<Infos> li = new HashSet<>();
                     int id_infos = rs.getInt("ID_INFO");
 
                     if (id_infos != 0) {
