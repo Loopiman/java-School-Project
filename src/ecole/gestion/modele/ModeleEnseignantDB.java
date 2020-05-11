@@ -34,15 +34,16 @@ public class ModeleEnseignantDB implements DAOEnseignant {
 
     @Override
     public Enseignant create(Enseignant obj) {
-        String req1 = "insert into api_enseignant(matricule, nom,prenom,tel,chargesem,salaire_mensu,date_engag) values(?,?,?,?,?,?,?)";
+        String req1 = "insert into api_enseignant(matricule, nom,prenom,tel,chargesem, chargeRest,salaire_mensu,date_engag) values(?,?,?,?,?,?,?,?)";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1);) {
             pstm1.setString(1, obj.getMatricule());
             pstm1.setString(2, obj.getNom());
             pstm1.setString(3, obj.getPrenom());
             pstm1.setString(4, obj.getTel());
             pstm1.setInt(5, obj.getChargeSem());
-            pstm1.setBigDecimal(6, obj.getSalaireMensu());
-            pstm1.setDate(7, Date.valueOf(obj.getDateEngagement()));
+            pstm1.setInt(6, obj.getChargeRest());
+            pstm1.setBigDecimal(7, obj.getSalaireMensu());
+            pstm1.setDate(8, Date.valueOf(obj.getDateEngagement()));
             int n = pstm1.executeUpdate();
             if (n == 0) {
                 return null;
@@ -73,11 +74,12 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                     String prenom = rs.getString("PRENOM");
                     String tel = rs.getString("TEL");
                     int chargesem = rs.getInt("CHARGESEM");
+                    int chargeRest = rs.getInt("CHARGEREST");
                     BigDecimal salaire_mensu = rs.getBigDecimal("SALAIRE_MENSU");
                     LocalDate date_engagement = rs.getDate("DATE_ENGAG").toLocalDate();
-                    Enseignant e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, salaire_mensu, date_engagement);
+                    Enseignant e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, chargeRest, salaire_mensu, date_engagement);
 
-                    ArrayList<Infos> li = new ArrayList<>();
+                    List<Infos> li = new ArrayList<>();
 
                     int id_infos = rs.getInt("ID_INFO");
                     if (id_infos != 0) {
@@ -125,22 +127,38 @@ public class ModeleEnseignantDB implements DAOEnseignant {
     }
 
     @Override
-    public Enseignant update(Enseignant obj
-    ) {
+    public Enseignant update(Enseignant obj) {
         EnseignantDB pdb = (EnseignantDB) obj;
-        String req = "update api_enseignant set tel=?,chargesem=?,salaire_mensu=? where id_enseignant = ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        String req = "update api_enseignant set tel=?,chargesem=?, chargerest = ?, salaire_mensu=? where id_enseignant = ?";
+        String req1 = "select chargesem from api_enseignant where id_enseignant = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req); PreparedStatement pstm1 = dbConnect.prepareStatement(req1);) {
 
-            pstm.setInt(4, pdb.getId_enseignant());
+            pstm1.setInt(1, pdb.getId_enseignant());
+            int oldcharge = 0;
+            try (ResultSet rs = pstm1.executeQuery()) {
+                if (rs.next()) {
+                    oldcharge = rs.getInt("CHARGESEM");
+                }
+            }
+            int dif = (pdb.getChargeSem()-oldcharge);
+            int chargeRest = obj.getChargeRest()+dif;
+            if(chargeRest < 0){
+                System.out.println("Impossible d'enlever plus que la charge actuelle.");
+                return null;
+            }
+            pstm.setInt(5, pdb.getId_enseignant());
             pstm.setString(1, obj.getTel());
             pstm.setInt(2, obj.getChargeSem());
-            pstm.setBigDecimal(3, obj.getSalaireMensu());
+            pstm.setInt(3, obj.getChargeRest()+dif);
+            pstm.setBigDecimal(4, obj.getSalaireMensu());
             int n = pstm.executeUpdate();
+
             if (n == 0) {
                 return null;
             }
             return read(obj);
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }
@@ -176,9 +194,10 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                 String prenom = rs.getString("PRENOM");
                 String tel = rs.getString("TEL");
                 int chargesem = rs.getInt("CHARGESEM");
+                int chargeRest = rs.getInt("CHARGEREST");
                 BigDecimal salaire_mensu = rs.getBigDecimal("SALAIRE_MENSU");
                 LocalDate date_engagement = rs.getDate("DATE_ENGAG").toLocalDate();
-                e.add(new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, salaire_mensu, date_engagement));
+                e.add(new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, chargeRest, salaire_mensu, date_engagement));
             }
             return e;
 

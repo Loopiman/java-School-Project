@@ -22,8 +22,8 @@ public class EnseignantDB extends Enseignant{
     public EnseignantDB() {
     }
 
-    public EnseignantDB(int id_enseignant, String matricule, String nom, String prenom, String tel, int chargeSem, BigDecimal salaireMensu, LocalDate dateEngagement) {
-        super(matricule, nom, prenom, tel, chargeSem, salaireMensu, dateEngagement);
+    public EnseignantDB(int id_enseignant, String matricule, String nom, String prenom, String tel, int chargeSem, int chargeRest, BigDecimal salaireMensu, LocalDate dateEngagement) {
+        super(matricule, nom, prenom, tel, chargeSem, chargeRest, salaireMensu, dateEngagement);
         this.id_enseignant = id_enseignant;
     }
 

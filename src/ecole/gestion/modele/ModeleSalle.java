@@ -2,7 +2,6 @@ package ecole.gestion.modele;
 
 import ecole.metier.Salle;
 import java.util.*;
-import methods.SigleComparator;
 
 /**
  *

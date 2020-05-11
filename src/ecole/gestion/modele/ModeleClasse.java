@@ -3,7 +3,9 @@ package ecole.gestion.modele;
 import ecole.metier.Classe;
 import ecole.metier.Infos;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -11,7 +13,7 @@ import java.util.List;
  */
 public class ModeleClasse implements DAOClasse{
 
-    private List<Classe> listeClasse = new ArrayList();
+    private Set<Classe> listeClasse = new HashSet();
 
     @Override
     public Classe create(Classe cl) {
@@ -63,7 +65,7 @@ public class ModeleClasse implements DAOClasse{
     }
     
     @Override
-    public List<Classe> readAll(){
+    public Set<Classe> readAll(){
         return listeClasse;
     }
     

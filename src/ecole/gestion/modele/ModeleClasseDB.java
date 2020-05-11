@@ -21,7 +21,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import myconnections.DBConnection;
 
 /**
@@ -62,7 +64,7 @@ public class ModeleClasseDB implements DAOClasse {
         String sigle = clrech.getSigleClasse();
         String req
                 = "select cl.id_classe, cl.sigle, cl.annee, cl.specialite, cl.nbr_eleves,"
-                + "e.id_enseignant, e.matricule, e.nom, e.prenom, e.tel, e.chargesem, e.salaire_mensu, e.date_engag,"
+                + "e.id_enseignant, e.matricule, e.nom, e.prenom, e.tel, e.chargesem, e.chargerest, e.salaire_mensu, e.date_engag,"
                 + "c.id_cours, c.code, c.intitule, c.nhs,"
                 + "s.id_salle, s.sigle_salle, s.capacite,"
                 + "i.id_info, i.id_classe, i.id_enseignant, i.id_cours, i.id_salle"
@@ -83,7 +85,7 @@ public class ModeleClasseDB implements DAOClasse {
 
                     Classe cl = new ClasseDB(id_classe, sigle, annee, specialite, nbr_eleves);
 
-                    ArrayList<Infos> li = new ArrayList<>();
+                    List<Infos> li = new ArrayList<>();
                     int id_infos = rs.getInt("ID_INFO");
 
                     if (id_infos != 0) {
@@ -94,10 +96,11 @@ public class ModeleClasseDB implements DAOClasse {
                         String prenom = rs.getString("PRENOM");
                         String tel = rs.getString("TEL");
                         int chargesem = rs.getInt("CHARGESEM");
+                        int chargeRest = rs.getInt("CHARGEREST");
                         BigDecimal salaire_mensu = rs.getBigDecimal("SALAIRE_MENSU");
                         LocalDate date_engagement = rs.getDate("DATE_ENGAG").toLocalDate();
 
-                        Enseignant e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, salaire_mensu, date_engagement);
+                        Enseignant e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, chargeRest, salaire_mensu, date_engagement);
 
                         /*----------TABLE COURS----------*/
                         int id_cours = rs.getInt("ID_COURS");
@@ -138,11 +141,12 @@ public class ModeleClasseDB implements DAOClasse {
                             prenom = rs.getString("PRENOM");
                             tel = rs.getString("TEL");
                             chargesem = rs.getInt("CHARGESEM");
+                            chargeRest = rs.getInt("CHARGEREST");
                             salaire_mensu = rs.getBigDecimal("SALAIRE_MENSU");
                             date_engagement = rs.getDate("DATE_ENGAG").toLocalDate();
                             c = new CoursDB(id_cours, code, intitule, nhs);
                             s = new SalleDB(id_salle, sigle, capacite);
-                            e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, salaire_mensu, date_engagement);
+                            e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, chargeRest, salaire_mensu, date_engagement);
                             i = new InfosDB(id_infos, id_cours, id_enseignant, id_classe, id_salle, c, s, e);
                             li.add(i);
                         }
@@ -202,7 +206,8 @@ public class ModeleClasseDB implements DAOClasse {
     @Override
     public boolean add(Classe c, Infos i) {
         String req = "insert into api_info(id_classe, id_enseignant, id_cours,id_salle) values(?,?,?,?)";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        String req2 = "update api_enseignant set chargeRest = ? where id_enseignant = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req); PreparedStatement pstm1 = dbConnect.prepareStatement(req2);) {
 
             CoursDB cdb = (CoursDB) i.getCours();
             int idc = cdb.getId_cours();
@@ -220,8 +225,13 @@ public class ModeleClasseDB implements DAOClasse {
             pstm.setInt(2, ide);
             pstm.setInt(3, idc);
             pstm.setInt(4, ids);
+
+            pstm1.setInt(1, e.getChargeRest());
+            pstm1.setInt(2, e.getId_enseignant());
             int n = pstm.executeUpdate();
-            if (n == 0) {
+            int n1 = pstm1.executeUpdate();
+
+            if (n == 0 && n1 == 0) {
                 return false;
             } else {
                 return true;
@@ -233,9 +243,9 @@ public class ModeleClasseDB implements DAOClasse {
     }
 
     @Override
-    public List<Classe> readAll() {
+    public Set<Classe> readAll() {
         String req = "select * from api_classe order by sigle";
-        List<Classe> cl = new ArrayList<>();
+        Set<Classe> cl = new HashSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int id_classe = rs.getInt("ID_CLASSE");

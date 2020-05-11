@@ -4,6 +4,7 @@ import ecole.metier.*;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueClasse;
 import java.util.List;
+import java.util.Set;
 import methods.Controle;
 
 /**
@@ -124,7 +125,7 @@ public class PresenterClasse {
         }*/
 
         Enseignant e = pe.affAll();
-        
+
         if (e == null) {
             return;
         }
@@ -133,10 +134,11 @@ public class PresenterClasse {
             return;
         }
 
-        if (e.getChargeSem() < c.getNhs()) {
+        if (e.getChargeRest() < c.getNhs()) {
             System.out.println("l'enseignant n'a pas une charge assez grande");
             return;
         }
+        e.setChargeRest(e.getChargeRest()-c.getNhs());
 
         Salle s = ps.affAll();
         if (s == null) {
@@ -146,9 +148,8 @@ public class PresenterClasse {
             System.out.println("salle pas assez grande");
             return;
         }
-        
+
         Infos i = new Infos(c, s, e);
-        System.out.println(i.toString());
         boolean add = e.getListeInfos().add(i);
         boolean res = mdcl.add(cl, i);
         if (res) {
@@ -161,7 +162,7 @@ public class PresenterClasse {
 
     protected Classe affAll() {
         String chs;
-        List<Classe> lp = mdcl.readAll();
+        Set<Classe> lp = mdcl.readAll();
         if (lp.isEmpty()) {
             System.out.println("vide");
             return null;
@@ -176,7 +177,13 @@ public class PresenterClasse {
                     return null;
                 }
                 if (ch >= 1 && ch <= lp.size()) {
-                    return lp.get(ch - 1);
+                    int i = 0;
+                    for (Classe c : lp) {
+                        if (ch - 1 == i) {
+                            return c;
+                        }
+                        i++;
+                    }
                 }
             } while (true);
         }

@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Enseignant {
 
-    
     /**
      * identifiant unique de l'enseignant
      */
@@ -39,7 +38,8 @@ public class Enseignant {
      * nombre d'heures par semaine
      */
     protected int chargeSem;
-    
+
+    protected int chargeRest;
 
     /**
      * salaire mensuel
@@ -71,16 +71,18 @@ public class Enseignant {
      * @param salaireMensu
      * @param dateEngagement
      */
-    public Enseignant( String matricule, String nom, String prenom, String tel, int chargeSem, BigDecimal salaireMensu, LocalDate dateEngagement) {
+    public Enseignant(String matricule, String nom, String prenom, String tel, int chargeSem, int chargeRest, BigDecimal salaireMensu, LocalDate dateEngagement) {
 
         this.matricule = matricule;
         this.nom = nom;
         this.prenom = prenom;
         this.tel = tel;
         this.chargeSem = chargeSem;
+        this.chargeRest = chargeRest;
         this.salaireMensu = salaireMensu;
         this.dateEngagement = dateEngagement;
     }
+
     /**
      * getter du matricule unique
      *
@@ -169,6 +171,14 @@ public class Enseignant {
      */
     public void setChargeSem(int chargeSem) {
         this.chargeSem = chargeSem;
+    }
+
+    public int getChargeRest() {
+        return chargeRest;
+    }
+
+    public void setChargeRest(int chargeRest) {
+        this.chargeRest = chargeRest;
     }
 
     /**
@@ -260,8 +270,7 @@ public class Enseignant {
     public String toString() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d-MM-yyyy", Locale.FRENCH);
         String aff = dateEngagement.format(dtf);
-        return "matricule : " + matricule + " nom : " + nom + " prénom : " + prenom + " tel : " + tel + " chargeSem : " + chargeSem + " salaireMensu : " + salaireMensu + " date engagement : " + aff;
+        return "matricule : " + matricule + " nom : " + nom + " prénom : " + prenom + " tel : " + tel + " chargeSem : " + chargeSem + "chargeRest : "+ chargeRest + " salaireMensu : " + salaireMensu + " date engagement : " + aff;
     }
-
 
 }

@@ -64,7 +64,7 @@ public class PresenterEnseignant {
     public Enseignant recherche() {
         String nrech = vuee.read();
 
-        Enseignant e = new Enseignant(nrech, "", "", "", 0, null, null);
+        Enseignant e = new Enseignant(nrech, "", "", "", 0,0, null, null);
         e = mde.read(e);
         if (e == null) {
             vuee.displayMsg("enseignant introuvable");

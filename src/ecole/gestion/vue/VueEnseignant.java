@@ -72,6 +72,8 @@ public class VueEnseignant {
             chargeSem = getMsg("Entrer le nombre d'heures par semaine : ");
         } while (!Controle.verifChargesem(chargeSem));
         int charge = Integer.parseInt(chargeSem);
+        
+        int chargeRest = charge;
 
         do {
             salaireMensu = getMsg("Entrer le salaire mensuel : ");
@@ -91,7 +93,7 @@ public class VueEnseignant {
             }
         } while (ok == false);
 
-        e = new Enseignant(matricule, nom, prenom, tel, charge, salaire, dateEngagement);
+        e = new Enseignant(matricule, nom, prenom, tel, charge, chargeRest, salaire, dateEngagement);
         return e;
     }
 
