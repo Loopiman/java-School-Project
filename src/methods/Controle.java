@@ -54,6 +54,24 @@ public class Controle {
         return ok;
     }
 
+    public static boolean verifId(String matricule) {
+        boolean ok = false;
+
+        String part1;
+        String part2;
+
+        part1 = matricule.substring(0, 1);
+        part2 = matricule.substring(1);
+        if (verifAlphabet(part1) && verifInteger(part2)) {
+            ok = true;
+        } else {
+            ok = false;
+            System.out.println("Matricule Invalide");
+        }
+
+        return ok;
+    }
+
     public static boolean verifNumero(String tel) {
         boolean ok;
         if (tel.length() != 10) {

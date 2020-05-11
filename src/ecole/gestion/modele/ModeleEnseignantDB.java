@@ -164,9 +164,9 @@ public class ModeleEnseignantDB implements DAOEnseignant {
     }
 
     @Override
-    public boolean delete(Enseignant obj
-    ) {
+    public boolean delete(Enseignant obj) {
         String req = "delete from api_enseignant where matricule= ?";
+        
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
             pstm.setString(1, obj.getMatricule());
@@ -177,7 +177,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("erreur : L'enseignant est attribué à un info");
+            System.out.println("erreur : L'enseignant est attribué à une info");
             return false;
         }
     }

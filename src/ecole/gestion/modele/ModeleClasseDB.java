@@ -199,6 +199,7 @@ public class ModeleClasseDB implements DAOClasse {
                 return true;
             }
         } catch (Exception e) {
+            System.out.println("erreur : La classe est attribué à une info");
             return false;
         }
     }

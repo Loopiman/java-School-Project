@@ -104,6 +104,7 @@ public class ModeleCoursDB implements DAOCours {
                 return true;
             }
         } catch (Exception e) {
+            System.out.println("erreur : Le cours est attribué à une info");
             return false;
         }
     }

@@ -106,8 +106,6 @@ public class PresenterClasse {
                 boolean res = mdcl.delete(cl);
                 if (res) {
                     vuecl.displayMsg("Classe supprimé");
-                } else {
-                    vuecl.displayMsg("erreur lors de la suppression");
                 }
             }
         }

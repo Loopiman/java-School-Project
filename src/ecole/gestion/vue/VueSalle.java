@@ -45,7 +45,7 @@ public class VueSalle {
 
         do {
             sigle = getMsg("Entrer le sigle (exemple : S1)");
-        } while (!Controle.verifId(sigle, "S"));
+        } while (!Controle.verifId(sigle));
 
         do {
             capacite = getMsg("Entrer la capacité");

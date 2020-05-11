@@ -69,8 +69,24 @@ public class ModeleSalleDB implements DAOSalle {
     @Override
     public Salle update(Salle obj) {
         SalleDB s = (SalleDB) obj;
+        int cap = 0;
         String req = "update api_salle set sigle_salle=?,capacite=? where id_salle =  ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        String req1 = "select min(cl.nbr_eleves) as MIN from api_classe cl left join api_info i on cl.id_classe = i.id_classe "
+                + " left join api_salle s on i.id_salle = s.id_salle where s.sigle_salle = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req); PreparedStatement pstm1 = dbConnect.prepareStatement(req1)) {
+
+            pstm1.setString(1, s.getSigleSalle());
+
+            try (ResultSet rs = pstm1.executeQuery()) {
+                if (rs.next()) {
+                    cap = rs.getInt("MIN");
+                }
+            }
+            System.out.println(cap);
+            if (s.getCapacite() < cap) {
+                System.out.println("Impossible de baisser la capactite actuelle: une classe d'une capacité supérieure est occupée.");
+                return null;
+            }
             pstm.setInt(3, s.getId_salle());
             pstm.setString(1, obj.getSigleSalle());
             pstm.setInt(2, obj.getCapacite());
@@ -80,6 +96,7 @@ public class ModeleSalleDB implements DAOSalle {
             }
             return read(obj);
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }
@@ -87,7 +104,7 @@ public class ModeleSalleDB implements DAOSalle {
     @Override
     public boolean delete(Salle obj) {
         String req = "delete from api_salle where sigle_salle= ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req);) {
             pstm.setString(1, obj.getSigleSalle());
             int n = pstm.executeUpdate();
             if (n == 0) {
@@ -96,6 +113,7 @@ public class ModeleSalleDB implements DAOSalle {
                 return true;
             }
         } catch (Exception e) {
+            System.out.println("erreur : La salle est attribué à une info");
             return false;
         }
     }

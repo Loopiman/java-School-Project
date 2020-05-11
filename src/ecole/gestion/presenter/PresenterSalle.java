@@ -97,8 +97,6 @@ public class PresenterSalle {
                 boolean res = mds.delete(s);
                 if (res) {
                     vues.displayMsg("Salle supprimée");
-                } else {
-                    vues.displayMsg("erreur lors de la suppression");
                 }
             }
         }

@@ -96,8 +96,6 @@ public class PresenterCours {
                 boolean res = mdc.delete(c);
                 if (res) {
                     vuec.displayMsg("Cours supprimé");
-                } else {
-                    vuec.displayMsg("erreur lors de la suppression");
                 }
             }
         }
