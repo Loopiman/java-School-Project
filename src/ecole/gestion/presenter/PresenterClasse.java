@@ -117,10 +117,6 @@ public class PresenterClasse {
         if (cl == null) {
             return;
         }
-        /*if(!cl.getListeInfos().isEmpty()){
-            System.out.println("classe deja attribué");
-            return;
-        }*/
 
         Enseignant e = pe.affAll();
 

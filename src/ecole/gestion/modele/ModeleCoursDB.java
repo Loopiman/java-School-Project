@@ -76,7 +76,59 @@ public class ModeleCoursDB implements DAOCours {
     public Cours update(Cours obj) {
         CoursDB pdb = (CoursDB) obj;
         String req = "update api_cours set intitule=?,nhs=? where id_cours = ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        String req1 = "select e.matricule as MAT, e.chargerest as CHARGE\n"
+                + " from api_enseignant e\n"
+                + " left join api_info i on e.id_enseignant = i.id_enseignant\n"
+                + " left join api_cours c on c.id_cours = i.id_cours\n"
+                + " where c.code = ?";
+        String req2 = "select nhs from api_cours where code = ?";
+        String req3 = "update api_enseignant set chargeRest = ? where matricule = ?";
+        String req4 = "select min(e.chargerest) as MIN from api_enseignant e\n"
+                + "left join api_info i on i.id_enseignant = e.id_enseignant\n"
+                + "left join api_cours c on c.id_cours = i.id_cours\n"
+                + "where c.code = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req);
+                PreparedStatement pstm1 = dbConnect.prepareStatement(req1);
+                PreparedStatement pstm2 = dbConnect.prepareStatement(req2);
+                PreparedStatement pstm3 = dbConnect.prepareStatement(req3);
+                PreparedStatement pstm4 = dbConnect.prepareStatement(req4);) {
+
+            pstm2.setString(1, pdb.getCode());
+            int oldnhs = 0;
+            int min = 0;
+            pstm4.setString(1, pdb.getCode());
+            try (ResultSet rs = pstm2.executeQuery()) {
+                if (rs.next()) {
+                    oldnhs = rs.getInt("NHS");
+                }
+            }
+            int dif = (pdb.getNhs() - oldnhs);
+
+            pstm1.setString(1, pdb.getCode());
+            try (ResultSet rs = pstm4.executeQuery()) {
+                if (rs.next()) {
+                    min = rs.getInt("MIN");
+                }
+            }
+            if (dif > min) {
+                System.out.println("Impossible d'augmenter le nombre d'heures de cours: Les enseignants n'ont pas une charge assez grande");
+                return null;
+            }
+            try (ResultSet rs = pstm1.executeQuery()) {
+                
+                while (rs.next()) {
+                    String matricule = rs.getString("MAT");
+                    int chargerest = rs.getInt("CHARGE");
+                    System.out.println("matricule : " + matricule + " chargerest : " + chargerest);
+                    
+                    pstm3.setInt(1, chargerest - dif);
+                    pstm3.setString(2, matricule);
+                    int n = pstm3.executeUpdate();
+                    if(n == 0){
+                        System.out.println("problème");
+                    }
+                }
+            }
 
             pstm.setInt(3, pdb.getId_cours());
             pstm.setString(1, obj.getIntitule());
@@ -87,6 +139,7 @@ public class ModeleCoursDB implements DAOCours {
             }
             return read(obj);
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }
