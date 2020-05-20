@@ -3,8 +3,11 @@ package ecole.gestion.presenter;
 import ecole.metier.Cours;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueCours;
-import java.util.*;
+import ecole.metier.Infos;
+
 import methods.Controle;
+
+import java.util.*;
 
 /**
  *
@@ -23,6 +26,7 @@ public class PresenterCours {
     public void gestion() {
         do {
             int ch = vuec.menu();
+            mdc.init();
             switch (ch) {
                 case 1:
                     ajout();
@@ -101,6 +105,10 @@ public class PresenterCours {
         }
     }
 
+    public void suppressionInfos(Infos i) {
+        mdc.deleteInfo(i);
+    }
+
     protected Cours affAll() {
         String chs;
         Set<Cours> lp = mdc.readAll();
@@ -115,8 +123,8 @@ public class PresenterCours {
             }
             if (ch >= 1 && ch <= lp.size()) {
                 int i = 0;
-                for(Cours c: lp){
-                    if(ch-1 == i){
+                for (Cours c : lp) {
+                    if (ch - 1 == i) {
                         return c;
                     }
                     i++;

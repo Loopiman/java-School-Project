@@ -1,7 +1,7 @@
 package ecole.gestion.vue;
 
 import ecole.metier.*;
-import static java.lang.Integer.parseInt;
+
 import methods.Controle;
 
 import java.util.*;
@@ -28,11 +28,30 @@ public class VueEnseignant {
 
     public int menu() {
         int ch;
+        String chs;
         do {
-            String chs = getMsg("1. Ajout\n2. Afficher les enseignants\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
+            do {
+                chs = getMsg("1. Ajout\n2. Afficher les enseignants\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
+            } while (!Controle.verifInteger(chs));
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 6) {
+                return ch;
+            }
+            displayMsg("choix invalide");
+        } while (true);
+    }
+
+    public int menuTri() {
+        int ch;
+        String chs;
+        do {
+            do {
+                chs = getMsg("Tri par :\n1. Matricule\n2. Nom\n3. Date engagement\n\nVotre choix : ");
+            } while (!Controle.verifInteger(chs));
+
+            ch = Integer.parseInt(chs);
+            if (ch >= 1 && ch <= 3) {
                 return ch;
             }
             displayMsg("choix invalide");
@@ -62,7 +81,7 @@ public class VueEnseignant {
 
         do {
             prenom = getMsg("Entrer le prénom : ");
-        }while(!Controle.verifAlphabet(prenom));
+        } while (!Controle.verifAlphabet(prenom));
 
         do {
             tel = getMsg("Entrer le telephone :");
@@ -72,7 +91,7 @@ public class VueEnseignant {
             chargeSem = getMsg("Entrer le nombre d'heures par semaine : ");
         } while (!Controle.verifChargesem(chargeSem));
         int charge = Integer.parseInt(chargeSem);
-        
+
         int chargeRest = charge;
 
         do {
@@ -170,7 +189,40 @@ public class VueEnseignant {
 
     public void affAll(Set<Enseignant> le) {
         int i = 1;
+
         for (Enseignant e : le) {
+            displayMsg(i + "." + e.toString());
+            i++;
+        }
+    }
+
+    // https://www.javatpoint.com/java-lambda-expressions
+    public void affAll(Set<Enseignant> le, int mode) {
+        int i = 1;
+        List<Enseignant> tri = new ArrayList<>();
+        for (Enseignant e : le) {
+            System.out.println(e.toString());
+            tri.add(e);
+        }
+        switch (mode) {
+            case 1:
+                Collections.sort(tri, (p1, p2) -> {
+                    return p1.getMatricule().compareTo(p2.getMatricule());
+                });
+                break;
+            case 2:
+                Collections.sort(tri, (p1, p2) -> {
+                    return p1.getNom().compareTo(p2.getNom());
+                });
+                break;
+            case 3:
+                Collections.sort(tri, (p1, p2) -> {
+                    return p1.getDateEngagement().compareTo(p2.getDateEngagement());
+                });
+                break;
+        }
+
+        for (Enseignant e : tri) {
             displayMsg(i + "." + e.toString());
             i++;
         }

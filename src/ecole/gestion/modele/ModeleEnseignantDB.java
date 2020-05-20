@@ -8,14 +8,16 @@ import ecole.metier.Salle;
 import ecole.metier.db.CoursDB;
 import ecole.metier.db.InfosDB;
 import ecole.metier.db.SalleDB;
+
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 import myconnections.DBConnection;
 
 /**
@@ -28,6 +30,11 @@ public class ModeleEnseignantDB implements DAOEnseignant {
 
     public ModeleEnseignantDB() {
         dbConnect = DBConnection.getConnection();
+    }
+    
+    @Override
+    public void init(){
+        
     }
 
     @Override
@@ -77,7 +84,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                     LocalDate date_engagement = rs.getDate("DATE_ENGAG").toLocalDate();
                     Enseignant e = new EnseignantDB(id_enseignant, matricule, nom, prenom, tel, chargesem, chargeRest, salaire_mensu, date_engagement);
 
-                    Set<Infos> li = new HashSet<>();
+                    Set<Infos> li = new TreeSet<>();
 
                     int id_infos = rs.getInt("ID_INFO");
                     if (id_infos != 0) {
@@ -138,16 +145,16 @@ public class ModeleEnseignantDB implements DAOEnseignant {
                     oldcharge = rs.getInt("CHARGESEM");
                 }
             }
-            int dif = (pdb.getChargeSem()-oldcharge);
-            int chargeRest = obj.getChargeRest()+dif;
-            if(chargeRest < 0){
+            int dif = (pdb.getChargeSem() - oldcharge);
+            int chargeRest = obj.getChargeRest() + dif;
+            if (chargeRest < 0) {
                 System.out.println("Impossible d'enlever plus que la charge actuelle.");
                 return null;
             }
             pstm.setInt(5, pdb.getId_enseignant());
             pstm.setString(1, obj.getTel());
             pstm.setInt(2, obj.getChargeSem());
-            pstm.setInt(3, obj.getChargeRest()+dif);
+            pstm.setInt(3, obj.getChargeRest() + dif);
             pstm.setBigDecimal(4, obj.getSalaireMensu());
             int n = pstm.executeUpdate();
 
@@ -164,7 +171,7 @@ public class ModeleEnseignantDB implements DAOEnseignant {
     @Override
     public boolean delete(Enseignant obj) {
         String req = "delete from api_enseignant where matricule= ?";
-        
+
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
             pstm.setString(1, obj.getMatricule());
@@ -181,9 +188,16 @@ public class ModeleEnseignantDB implements DAOEnseignant {
     }
 
     @Override
+    public boolean deleteInfo(Infos i) {
+       return true;
+    }
+    
+    
+
+    @Override
     public Set<Enseignant> readAll() {
         String req = "select * from api_enseignant order by matricule";
-        Set<Enseignant> e = new HashSet<>();
+        Set<Enseignant> e = new TreeSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int id_enseignant = rs.getInt("ID_ENSEIGNANT");

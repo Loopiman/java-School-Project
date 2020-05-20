@@ -19,6 +19,7 @@ public class GestEcole {
     PresenterCours pc;
     PresenterClasse pcl;
     PresenterSalle ps;
+    PresenterInfos pi;
     Scanner sc = new Scanner(System.in);
 
     public void gestion(int mode) {
@@ -26,12 +27,14 @@ public class GestEcole {
         DAOCours mdc = null;
         DAOEnseignant mde = null;
         DAOSalle mds = null;
+        DAOInfos mdi = null;
         switch (mode) {
             case 1:
                 mdcl = new ModeleClasse();
                 mdc = new ModeleCours();
                 mde = new ModeleEnseignant();
                 mds = new ModeleSalle();
+                mdi = new ModeleInfos();
                 break;
             case 2:
                 Connection dbConnect = null;
@@ -49,6 +52,7 @@ public class GestEcole {
                 mdc = new ModeleCoursDB();
                 mde = new ModeleEnseignantDB();
                 mds = new ModeleSalleDB();
+                mdi = new ModeleInfosDB();
                 break;
             case 3:
                 System.exit(0);
@@ -62,11 +66,14 @@ public class GestEcole {
         pc = new PresenterCours(mdc, vuec);
         VueSalle vuesl = new VueSalle();
         ps = new PresenterSalle(mds, vuesl);
+        VueInfos vuei = new VueInfos();
+        pi = new PresenterInfos(mdi, vuei, ps, pc, pe, pcl);
         VueClasse vuecl = new VueClasse();
-        pcl = new PresenterClasse(mdcl, vuecl, ps, pc, pe);
+        pcl = new PresenterClasse(mdcl, vuecl, ps, pc, pe, pi);
+        pi.setPcl(pcl);
 
         do {
-            System.out.println("1.Enseignant\n2.Classes\n3.Cours\n4.Salle\n5.fin");
+            System.out.println("1.Enseignant\n2.Classes\n3.Cours\n4.Salle\n5.Infos\n6.Fin");
             String ch = sc.nextLine();
             switch (ch) {
                 case "1":
@@ -82,11 +89,30 @@ public class GestEcole {
                     ps.gestion();
                     break;
                 case "5":
+                    pi.gestion();
+                    break;
+                case "6":
                     System.exit(0);
                 default:
                     System.out.println("choix invalide");
             }
         } while (true);
+    }
+
+    public PresenterClasse getPcl() {
+        return pcl;
+    }
+
+    public void setPcl(PresenterClasse pcl) {
+        this.pcl = pcl;
+    }
+
+    public PresenterInfos getPi() {
+        return pi;
+    }
+
+    public void setPi(PresenterInfos pi) {
+        this.pi = pi;
     }
 
     public static void main(String[] args) {

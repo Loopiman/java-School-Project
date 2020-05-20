@@ -3,8 +3,11 @@ package ecole.gestion.presenter;
 import ecole.gestion.vue.VueEnseignant;
 import ecole.metier.Enseignant;
 import ecole.gestion.modele.DAOEnseignant;
-import java.util.*;
+import ecole.metier.Infos;
+
 import methods.Controle;
+
+import java.util.*;
 
 /**
  *
@@ -23,6 +26,8 @@ public class PresenterEnseignant {
     public void gestion() {
         do {
             int ch = vuee.menu();
+            mde.init();
+
             switch (ch) {
                 case 1:
                     ajout();
@@ -58,13 +63,15 @@ public class PresenterEnseignant {
     }
 
     protected void affEnseignant() {
-        vuee.affAll(mde.readAll());
+        int mode = vuee.menuTri();
+        vuee.affAll(mde.readAll(), mode);
+
     }
 
     public Enseignant recherche() {
         String nrech = vuee.read();
 
-        Enseignant e = new Enseignant(nrech, "", "", "", 0,0, null, null);
+        Enseignant e = new Enseignant(nrech, "", "", "", 0, 0, null, null);
         e = mde.read(e);
         if (e == null) {
             vuee.displayMsg("enseignant introuvable");
@@ -100,6 +107,10 @@ public class PresenterEnseignant {
                 }
             }
         }
+    }
+
+    public void suppressionInfos(Infos i) {
+        mde.deleteInfo(i);
     }
 
     protected Enseignant affAll() {

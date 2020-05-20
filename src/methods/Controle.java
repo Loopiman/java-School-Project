@@ -3,6 +3,7 @@ package methods;
 import static java.lang.Integer.parseInt;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -25,13 +26,11 @@ public class Controle {
 
     public static boolean verifAlphabet(String ph) {
         boolean ok = false;
-        for (int i = 0; i < ph.length(); i++) {
-            if (Character.isAlphabetic(ph.charAt(i)) == true) {
-                ok = true;
-            } else {
-                ok = false;
-                break;
-            }
+
+        if (ph.matches("[a-zA-Z]+")) {
+            ok = true;
+        } else {
+            ok = false;
         }
         return ok;
     }
@@ -123,16 +122,17 @@ public class Controle {
 
     public static boolean verifSalaire(String sal) {
         boolean ok = true;
-        if (verifInteger(sal) == true) {
+        try {
             BigDecimal min = new BigDecimal("2000");
             BigDecimal salaire = new BigDecimal(sal);
             if (salaire.compareTo(min) == -1) {
                 System.out.println("Veuillez entrer un salaire minimum 2000€");
                 ok = false;
             }
-        } else {
+        } catch (Exception e) {
             ok = false;
         }
+
         return ok;
     }
 
@@ -153,8 +153,10 @@ public class Controle {
 
     public static boolean verifAnnee(String a) {
         boolean ok = false;
+
+        int now = LocalDate.now().getYear();
         if (verifInteger(a) == true) {
-            if (a.length() < 4 || a.length() > 4) {
+            if ((a.length() < 4 || a.length() > 4) || parseInt(a) != now) {
                 System.out.println("Veuillez entrer une année valide");
             } else {
                 ok = true;

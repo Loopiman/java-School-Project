@@ -2,10 +2,12 @@ package ecole.gestion.presenter;
 
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueSalle;
+import ecole.metier.Infos;
 import ecole.metier.Salle;
 
-import java.util.*;
 import methods.Controle;
+
+import java.util.*;
 
 /**
  *
@@ -24,6 +26,7 @@ public class PresenterSalle {
     public void gestion() {
         do {
             int ch = vues.menu();
+            mds.init();
             switch (ch) {
                 case 1:
                     ajout();
@@ -102,6 +105,10 @@ public class PresenterSalle {
         }
     }
 
+    public void suppressionInfos(Infos i) {
+        mds.deleteInfo(i);
+    }
+
     protected Salle affAll() {
         String chs;
         Set<Salle> lp = mds.readAll();
@@ -117,8 +124,8 @@ public class PresenterSalle {
             }
             if (ch >= 1 && ch <= lp.size()) {
                 int i = 0;
-                for(Salle s: lp){
-                    if(ch-1 == i){
+                for (Salle s : lp) {
+                    if (ch - 1 == i) {
                         return s;
                     }
                     i++;

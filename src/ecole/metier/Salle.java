@@ -1,6 +1,8 @@
 package ecole.metier;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -9,7 +11,7 @@ import java.util.Objects;
  * @see Salle
  *
  */
-public class Salle {
+public class Salle implements Comparable<Salle>{
 
     /**
      * identifiant unique de la salle
@@ -20,6 +22,8 @@ public class Salle {
      * capacité de la salle
      */
     protected int capacite;
+
+    protected Set<Infos> listeInfos = new HashSet();
 
     /**
      * constructeur par défaut
@@ -78,6 +82,16 @@ public class Salle {
         this.capacite = capacite;
     }
 
+    public Set<Infos> getListeInfos() {
+        return listeInfos;
+    }
+
+    public void setListeInfos(Set<Infos> listeInfos) {
+        this.listeInfos = listeInfos;
+    }
+    
+    
+
     /**
      * hashCode
      *
@@ -113,7 +127,10 @@ public class Salle {
         }
         return true;
     }
-
+    @Override
+    public int compareTo(Salle s) {
+        return this.sigleSalle.compareTo(s.sigleSalle);
+    }
     @Override
     public String toString() {
         return "Salle{" + "sigleSalle=" + sigleSalle + ", capacite=" + capacite + '}';

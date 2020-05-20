@@ -1,7 +1,8 @@
 package ecole.gestion.modele;
 
 import ecole.metier.Cours;
-import java.util.List;
+import ecole.metier.Infos;
+
 import java.util.Set;
 
 /**
@@ -19,4 +20,8 @@ public interface DAOCours {
     Cours update(Cours crech);
 
     Set<Cours> readAll();
+    
+    boolean deleteInfo(Infos i);
+    
+    void init();
 }

@@ -9,7 +9,7 @@ import java.util.*;
  * @see Classe
  *
  */
-public class Classe {
+public class Classe implements Comparable<Classe>{
 
     /**
      * identifiant unique de la classe
@@ -137,8 +137,6 @@ public class Classe {
     public void setListeInfos(Set<Infos> listeInfos) {
         this.listeInfos = listeInfos;
     }
-    
-    
 
     /**
      * hashcode du sigle
@@ -175,10 +173,15 @@ public class Classe {
         }
         return true;
     }
-
+    
     @Override
-    public String toString() {
-        return "Classe{" + "sigleClasse=" + sigleClasse + ", annee=" + annee + ", specialite=" + specialite + ", nbrEleves=" + nbrEleves+'}';
+    public int compareTo(Classe cl) {
+        return this.sigleClasse.compareTo(cl.getSigleClasse());
     }
     
+    @Override
+    public String toString() {
+        return "Classe{" + "sigleClasse=" + sigleClasse + ", annee=" + annee + ", specialite=" + specialite + ", nbrEleves=" + nbrEleves + '}';
+    }
+
 }

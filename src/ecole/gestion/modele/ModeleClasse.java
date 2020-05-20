@@ -2,18 +2,23 @@ package ecole.gestion.modele;
 
 import ecole.metier.Classe;
 import ecole.metier.Infos;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
  * @author fabian
  */
-public class ModeleClasse implements DAOClasse{
+public class ModeleClasse implements DAOClasse {
 
-    private Set<Classe> listeClasse = new HashSet();
+    private Set<Classe> listeClasse = new TreeSet();
+
+    @Override
+    public void init() {
+        Classe c = new Classe("Cl1", 2020, "info", 10);
+        listeClasse.add(c);
+    }
 
     @Override
     public Classe create(Classe cl) {
@@ -56,6 +61,10 @@ public class ModeleClasse implements DAOClasse{
     @Override
     public boolean delete(Classe clrech) {
         Classe cl = read(clrech);
+        if (!cl.getListeInfos().isEmpty()) {
+            System.out.println("impossible de supprimer, classe présente dans une info");
+            return false;
+        }
         if (cl != null) {
             listeClasse.remove(cl);
             return true;
@@ -63,14 +72,35 @@ public class ModeleClasse implements DAOClasse{
             return false;
         }
     }
-    
+
     @Override
-    public Set<Classe> readAll(){
+    public boolean deleteInfo(Infos i) {
+        for (Classe cl : listeClasse) {
+            for (Infos in : cl.getListeInfos()) {
+                if (in.equals(i)) {
+                    cl.getListeInfos().remove(i);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public Set<Classe> readAll() {
         return listeClasse;
     }
-    
+
     @Override
     public boolean add(Classe cl, Infos i) {
+
+        Set<Infos> listeInfos = new TreeSet();
+        listeInfos = cl.getListeInfos();
+        for (Infos in : listeInfos) {
+            if (in.equals(i)) {
+                return false;
+            }
+        }
         cl.getListeInfos().add(i);
         return true;
     }

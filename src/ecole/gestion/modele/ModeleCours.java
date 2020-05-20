@@ -1,16 +1,23 @@
 package ecole.gestion.modele;
 
-import java.util.*;
 import ecole.metier.Cours;
-import ecole.gestion.modele.DAOCours;
+import ecole.metier.Infos;
+
+import java.util.*;
 
 /**
  *
  * @author fabian
  */
-public class ModeleCours implements DAOCours{
+public class ModeleCours implements DAOCours {
 
-    private Set<Cours> listeCours = new HashSet();
+    private Set<Cours> listeCours = new TreeSet();
+
+    @Override
+    public void init() {
+        Cours c = new Cours("C1", "progra", 2);
+        listeCours.add(c);
+    }
 
     @Override
     public Cours create(Cours c) {
@@ -52,6 +59,10 @@ public class ModeleCours implements DAOCours{
     @Override
     public boolean delete(Cours crech) {
         Cours c = read(crech);
+        if (!c.getListeInfos().isEmpty()) {
+            System.out.println("impossible de supprimer. Cours présent dans une info");
+            return false;
+        }
         if (c != null) {
             listeCours.remove(c);
             return true;
@@ -59,9 +70,22 @@ public class ModeleCours implements DAOCours{
             return false;
         }
     }
-    
+
     @Override
-    public Set<Cours> readAll(){
+    public boolean deleteInfo(Infos i) {
+        for (Cours c : listeCours) {
+            for (Infos in : c.getListeInfos()) {
+                if (in.equals(i)) {
+                    c.getListeInfos().remove(i);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public Set<Cours> readAll() {
         return listeCours;
     }
 }

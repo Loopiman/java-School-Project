@@ -1,7 +1,8 @@
 package ecole.gestion.modele;
 
+import ecole.metier.Infos;
 import ecole.metier.Salle;
-import java.util.List;
+
 import java.util.Set;
 
 /**
@@ -19,4 +20,8 @@ public interface DAOSalle {
     Salle update(Salle srech);
 
     Set<Salle> readAll();
+    
+    boolean deleteInfo(Infos i);
+    
+    void init();
 }

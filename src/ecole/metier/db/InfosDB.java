@@ -22,7 +22,7 @@ public class InfosDB extends Infos {
     protected int id_classe;
     protected int id_salle;
 
-    public InfosDB(int id_infos, int id_cours, int id_enseignant, int id_classe,  int id_salle, Cours cours, Salle salle, Enseignant enseignant) {
+    public InfosDB(int id_infos, int id_cours, int id_enseignant, int id_classe, int id_salle, Cours cours, Salle salle, Enseignant enseignant) {
         super(cours, salle, enseignant);
         this.id_infos = id_infos;
         this.id_cours = id_cours;
@@ -72,9 +72,33 @@ public class InfosDB extends Infos {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.id_infos;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final InfosDB other = (InfosDB) obj;
+        if (this.id_infos != other.id_infos) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "idInfos=" + id_infos + ", idCours=" + id_cours + ", idEnseignant=" + id_enseignant + ", idClasse=" + id_classe
                 + ", idSalle=" + id_salle + '}';
     }
-
 }

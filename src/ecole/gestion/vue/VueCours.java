@@ -1,9 +1,11 @@
 package ecole.gestion.vue;
 
-import java.util.*;
 import ecole.metier.Cours;
-import static java.lang.Integer.parseInt;
+
 import methods.Controle;
+
+import java.util.*;
+import static java.lang.Integer.parseInt;
 
 /**
  *
@@ -26,8 +28,11 @@ public class VueCours {
 
     public int menu() {
         int ch;
+        String chs;
         do {
-            String chs = getMsg("1. Ajout\n2. Afficher les cours\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
+            do {
+                chs = getMsg("1. Ajout\n2. Afficher les cours\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. Quitter le menu\n\nVotre choix : ");
+            } while (!Controle.verifInteger(chs));
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 6) {
@@ -48,9 +53,9 @@ public class VueCours {
             code = getMsg("Entrer le code (exemple : C1)");
         } while (!Controle.verifId(code, "C"));
 
-        do{
+        do {
             intitule = getMsg("Entrer l'intitulé");
-        }while(!Controle.verifAlphabet(intitule));
+        } while (!Controle.verifAlphabet(intitule));
 
         do {
             nhs = getMsg("Entrer le nombre d'heures par semaine");

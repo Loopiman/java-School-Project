@@ -1,7 +1,11 @@
 package ecole.gestion.modele;
 
-import java.util.*;
 import ecole.metier.Enseignant;
+import ecole.metier.Infos;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  *
@@ -9,7 +13,12 @@ import ecole.metier.Enseignant;
  */
 public class ModeleEnseignant implements DAOEnseignant {
 
-    private Set<Enseignant> listeEnseignant = new HashSet();
+    private Set<Enseignant> listeEnseignant = new TreeSet();
+    
+    public void init(){
+        Enseignant e = new Enseignant("E1", "Poriaux", "Michel", "0475942239", 6, 6, new BigDecimal("2500"), LocalDate.of(2001,9,10));
+        listeEnseignant.add(e);
+    }
 
     @Override
     public Enseignant create(Enseignant e) {
@@ -54,6 +63,10 @@ public class ModeleEnseignant implements DAOEnseignant {
     @Override
     public boolean delete(Enseignant erech) {
         Enseignant e = read(erech);
+        if (!e.getListeInfos().isEmpty()) {
+            System.out.println("impossible de supprimer. Enseignant présent dans une info");
+            return false;
+        }
         if (e != null) {
             listeEnseignant.remove(e);
             return true;
@@ -61,11 +74,23 @@ public class ModeleEnseignant implements DAOEnseignant {
             return false;
         }
     }
-    
+
     @Override
-    public Set<Enseignant> readAll(){
+    public boolean deleteInfo(Infos i) {
+        for (Enseignant e : listeEnseignant) {
+            for (Infos in : e.getListeInfos()) {
+                if (in.equals(i)) {
+                    e.getListeInfos().remove(i);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public Set<Enseignant> readAll() {
         return listeEnseignant;
     }
-    
 
 }

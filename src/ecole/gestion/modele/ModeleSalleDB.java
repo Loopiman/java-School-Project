@@ -1,15 +1,15 @@
 package ecole.gestion.modele;
 
+import ecole.metier.Infos;
 import ecole.metier.Salle;
 import ecole.metier.db.SalleDB;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 import myconnections.DBConnection;
 
 /**
@@ -22,6 +22,11 @@ public class ModeleSalleDB implements DAOSalle {
 
     public ModeleSalleDB() {
         dbConnect = DBConnection.getConnection();
+    }
+
+    @Override
+    public void init() {
+
     }
 
     @Override
@@ -119,9 +124,14 @@ public class ModeleSalleDB implements DAOSalle {
     }
 
     @Override
+    public boolean deleteInfo(Infos i) {
+        return true;
+    }
+
+    @Override
     public Set<Salle> readAll() {
         String req = "select * from api_salle order by sigle_salle";
-        Set<Salle> ls = new HashSet<>();
+        Set<Salle> ls = new TreeSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idsalle = rs.getInt("ID_SALLE");

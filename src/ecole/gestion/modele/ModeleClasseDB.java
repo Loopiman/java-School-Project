@@ -4,27 +4,21 @@ package ecole.gestion.modele;
  *
  * @author fabia
  */
-import ecole.metier.db.ClasseDB;
-import ecole.metier.Classe;
-import ecole.metier.Cours;
-import ecole.metier.Enseignant;
-import ecole.metier.Infos;
-import ecole.metier.Salle;
-import ecole.metier.db.CoursDB;
-import ecole.metier.db.EnseignantDB;
-import ecole.metier.db.InfosDB;
-import ecole.metier.db.SalleDB;
+import ecole.metier.db.*;
+import ecole.metier.*;
+
+import myconnections.DBConnection;
+
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
-import myconnections.DBConnection;
+import java.util.TreeSet;
 
 /**
  *
@@ -33,9 +27,15 @@ import myconnections.DBConnection;
 public class ModeleClasseDB implements DAOClasse {
 
     protected Connection dbConnect;
+    protected Scanner sc = new Scanner(System.in);
 
     public ModeleClasseDB() {
         dbConnect = DBConnection.getConnection();
+    }
+
+    @Override
+    public void init() {
+
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ModeleClasseDB implements DAOClasse {
             pstm.setString(1, sigle);
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    /*----------TABLE CASSE----------*/
+                    /*----------TABLE CLASSE----------*/
                     int id_classe = rs.getInt("ID_CLASSE");
                     int annee = rs.getInt("ANNEE");
                     String specialite = rs.getString("SPECIALITE");
@@ -199,9 +199,13 @@ public class ModeleClasseDB implements DAOClasse {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("erreur : La classe est attribué à une info");
             return false;
         }
+    }
+
+    @Override
+    public boolean deleteInfo(Infos i) {
+        return true;
     }
 
     @Override
@@ -238,7 +242,7 @@ public class ModeleClasseDB implements DAOClasse {
                 return true;
             }
         } catch (Exception ex) {
-            System.out.println("Impossible d'insérer les infos - Doublons (ou erreur externe)" + ex);
+
             return false;
         }
     }
@@ -246,7 +250,7 @@ public class ModeleClasseDB implements DAOClasse {
     @Override
     public Set<Classe> readAll() {
         String req = "select * from api_classe order by sigle";
-        Set<Classe> cl = new HashSet<>();
+        Set<Classe> cl = new TreeSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int id_classe = rs.getInt("ID_CLASSE");

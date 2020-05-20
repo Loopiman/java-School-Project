@@ -1,5 +1,6 @@
 package ecole.metier;
 
+
 import java.util.Objects;
 
 /**
@@ -112,6 +113,8 @@ public class Infos {
         }
         return true;
     }
+
+   
 
     /**
      * getter de l'enseignant

@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * @see Enseignant
  *
  */
-public class Enseignant {
+public class Enseignant implements Comparable<Enseignant> {
 
     /**
      * identifiant unique de l'enseignant
@@ -261,6 +261,11 @@ public class Enseignant {
         return true;
     }
 
+    @Override
+    public int compareTo(Enseignant e) {
+        return this.matricule.compareTo(e.getMatricule());
+    }
+
     /**
      * methode qui affiche les infos du professeur
      *
@@ -270,7 +275,7 @@ public class Enseignant {
     public String toString() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d-MM-yyyy", Locale.FRENCH);
         String aff = dateEngagement.format(dtf);
-        return "matricule : " + matricule + " nom : " + nom + " prénom : " + prenom + " tel : " + tel + " chargeSem : " + chargeSem + "chargeRest : "+ chargeRest + " salaireMensu : " + salaireMensu + " date engagement : " + aff;
+        return "matricule : " + matricule + " nom : " + nom + " prénom : " + prenom + " tel : " + tel + " chargeSem : " + chargeSem + "chargeRest : " + chargeRest + " salaireMensu : " + salaireMensu + " date engagement : " + aff;
     }
 
 }

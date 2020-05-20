@@ -3,9 +3,10 @@ package ecole.gestion.presenter;
 import ecole.metier.*;
 import ecole.gestion.modele.*;
 import ecole.gestion.vue.VueClasse;
-import java.util.List;
-import java.util.Set;
+
 import methods.Controle;
+
+import java.util.Set;
 
 /**
  *
@@ -18,18 +19,21 @@ public class PresenterClasse {
     private PresenterSalle ps;
     private PresenterCours pc;
     private PresenterEnseignant pe;
+    private PresenterInfos pi;
 
-    public PresenterClasse(DAOClasse mdcl, VueClasse vuecl, PresenterSalle ps, PresenterCours pc, PresenterEnseignant pe) {
+    public PresenterClasse(DAOClasse mdcl, VueClasse vuecl, PresenterSalle ps, PresenterCours pc, PresenterEnseignant pe, PresenterInfos pi) {
         this.mdcl = mdcl;
         this.vuecl = vuecl;
         this.ps = ps;
         this.pc = pc;
         this.pe = pe;
+        this.pi = pi;
     }
 
     public void gestion() {
         do {
             int ch = vuecl.menu();
+            mdcl.init();
             switch (ch) {
                 case 1:
                     ajout();
@@ -111,6 +115,10 @@ public class PresenterClasse {
         }
     }
 
+    public void suppressionInfos(Infos i) {
+        mdcl.deleteInfo(i);
+    }
+
     private void addInfo() {
 
         Classe cl = affAll();
@@ -132,7 +140,7 @@ public class PresenterClasse {
             System.out.println("l'enseignant n'a pas une charge assez grande");
             return;
         }
-        e.setChargeRest(e.getChargeRest()-c.getNhs());
+        e.setChargeRest(e.getChargeRest() - c.getNhs());
 
         Salle s = ps.affAll();
         if (s == null) {
@@ -144,14 +152,16 @@ public class PresenterClasse {
         }
 
         Infos i = new Infos(c, s, e);
-        boolean add = e.getListeInfos().add(i);
+        e.getListeInfos().add(i);
+        c.getListeInfos().add(i);
+        s.getListeInfos().add(i);
+        pi.add(i);
         boolean res = mdcl.add(cl, i);
         if (res) {
             vuecl.displayMsg("info ajoutée");
         } else {
             vuecl.displayMsg("info non ajoutée");
         }
-
     }
 
     protected Classe affAll() {

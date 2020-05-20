@@ -2,9 +2,10 @@ package ecole.gestion.vue;
 
 import ecole.metier.Classe;
 import ecole.metier.Infos;
-import static java.lang.Integer.parseInt;
+
 import methods.Controle;
 
+import static java.lang.Integer.parseInt;
 import java.util.*;
 
 /**
@@ -28,8 +29,11 @@ public class VueClasse {
 
     public int menu() {
         int ch;
+        String chs;
         do {
-            String chs = getMsg("1. Ajout\n2. afficher les classes\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. atribuer des classes\n7. Quitter le menu\nVotre choix : ");
+            do{
+                chs = getMsg("1. Ajout\n2. afficher les classes\n3. Rechercher\n4. Modifier\n5. Supprimer\n6. atribuer des classes\n7. Quitter le menu\nVotre choix : ");
+            }while(!Controle.verifInteger(chs));
 
             ch = Integer.parseInt(chs);
             if (ch >= 1 && ch <= 7) {

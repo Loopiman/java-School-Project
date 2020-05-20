@@ -1,6 +1,8 @@
 package ecole.metier;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -9,7 +11,7 @@ import java.util.Objects;
  * @see Cours
  *
  */
-public class Cours {
+public class Cours implements Comparable<Cours> {
 
     /**
      * identifiant unique du cours
@@ -29,6 +31,8 @@ public class Cours {
     /**
      * constructeur par défaut
      */
+    protected Set<Infos> listeInfos = new HashSet();
+
     public Cours() {
 
     }
@@ -101,6 +105,14 @@ public class Cours {
         this.nhs = nhs;
     }
 
+    public Set<Infos> getListeInfos() {
+        return listeInfos;
+    }
+
+    public void setListeInfos(Set<Infos> listeInfos) {
+        this.listeInfos = listeInfos;
+    }
+
     /**
      * hashcode de l'identifiant unique
      *
@@ -138,10 +150,13 @@ public class Cours {
     }
 
     @Override
+    public int compareTo(Cours c) {
+        return this.code.compareTo(c.getCode());
+    }
+
+    @Override
     public String toString() {
         return "Cours{" + "code=" + code + ", intitule=" + intitule + ", nhs=" + nhs + '}';
     }
-    
-    
 
 }

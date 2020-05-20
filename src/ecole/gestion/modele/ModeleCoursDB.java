@@ -6,11 +6,14 @@ package ecole.gestion.modele;
  */
 import ecole.metier.db.CoursDB;
 import ecole.metier.Cours;
+import ecole.metier.Infos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 import myconnections.DBConnection;
 
 /**
@@ -23,6 +26,11 @@ public class ModeleCoursDB implements DAOCours {
 
     public ModeleCoursDB() {
         dbConnect = DBConnection.getConnection();
+    }
+
+    @Override
+    public void init() {
+
     }
 
     @Override
@@ -70,39 +78,32 @@ public class ModeleCoursDB implements DAOCours {
 
     @Override
     public Cours update(Cours obj) {
-        //new lesson with parameter from new lesson update
         CoursDB pdb = (CoursDB) obj;
-        
+
         int nhs = 0;
         int min = 0;
         //requete pour mettre à jour la table api_cours
-        //update table lesson
         String req = "update api_cours set intitule=?,nhs=? where id_cours = ?";
-        
+
         //requete pour récupérer le matricule et la charge restante d'un enseignant (valeur qu'on modifie)
         //https://stackoverflow.com/questions/61750096/bug-executequery-java
-        //get matricule (id) and remaining charge (we want to update it)
         String req1 = "select e.matricule as MAT, e.chargerest as CHARGE\n"
                 + " from api_enseignant e\n"
                 + " left join api_info i on e.id_enseignant = i.id_enseignant\n"
                 + " where i.id_cours = ?";
-        
+
         //requete qui affiche l'ancienne durée du cours
-        //get old lesson time
         String req2 = "select nhs from api_cours where code = ?";
-        
+
         //requete qui vérifie qu'un cours est présent dans la table info (pour savoir si on doit update les enseignants ou non)
-        //check if a teacher is link to a lesson (if not, only update lesson)
         String req3 = "select count(id_info) as COUNT from api_info where id_cours = ?";
-        
+
         //requete qui permet de récupérer la charge restante la plus petite pour éviter d'ajouter trop d'heures de cours par rapport à la charge qui reste
-        //get the minimal charge from a teacher to avoid we enter a number higher as the minimal
         String req4 = "select min(e.chargerest) as MIN from api_enseignant e\n"
                 + "left join api_info i on i.id_enseignant = e.id_enseignant\n"
                 + "where i.id_cours = ?";
-        
+
         //requete qui met ajout la table enseignant
-        //update teacher table
         String req5 = "update api_enseignant set chargerest = ? where matricule = ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);
                 PreparedStatement pstm1 = dbConnect.prepareStatement(req1);
@@ -112,7 +113,6 @@ public class ModeleCoursDB implements DAOCours {
                 PreparedStatement pstm5 = dbConnect.prepareStatement(req5);) {
 
             //récupère l'ancienne durée de cours 
-            //get old lesson time
             pstm2.setString(1, pdb.getCode());
             try (ResultSet rs = pstm2.executeQuery()) {
                 if (rs.next()) {
@@ -121,7 +121,6 @@ public class ModeleCoursDB implements DAOCours {
             }
 
             //différence entre l'ancienne heure de cours et la nouvelle
-            //difference between the old lesson and the new
             int dif = nhs - pdb.getNhs();
 
             pstm3.setInt(1, pdb.getId_cours());
@@ -129,26 +128,21 @@ public class ModeleCoursDB implements DAOCours {
             try (ResultSet rs = pstm3.executeQuery()) {
                 if (rs.next()) {
                     //on vérifie qu'il y a au moins le cours une fois dans la table info si oui alors il faudra mettre à jours les enseignants, sinon juste mettre à jour la table cours
-                    //check if the teacher is link to a lesson (if not, only update lesson)
                     if (rs.getInt("COUNT") > 0) {
                         pstm4.setInt(1, pdb.getId_cours());
                         try (ResultSet rs1 = pstm4.executeQuery()) {
                             if (rs1.next()) {
                                 // on récupère la charge minimum parmis tout les enseignants pour ne pas mettre une durée de cours trop grande (condition pas encore faite)
-                                //get minimal from a teacher who is assigned to a lesson
                                 min = rs1.getInt("MIN");
                             }
                         }
                         pstm1.setInt(1, pdb.getId_cours());
                         try (ResultSet rs1 = pstm1.executeQuery()) {
-                            //for each teacher, update the new remaining charge (if multiple time, so multiple update)
                             while (rs1.next()) {
                                 //on récupère chaque enseignant de la table 
-                                //get each teacher from the table
                                 System.out.println("matricule : " + rs1.getString("MAT") + " charge : " + rs1.getInt("CHARGE"));
-                                
+
                                 //mettre à jour chaque prof /!\ C EST ICI QUE CA NE MET PAS A JOUR LE DEUXIEME ENSEIGNANT /!\
-                                //update teacher /!\HERE DOEN'T WORK THE CODE/!\
                                 pstm5.setInt(1, rs1.getInt("CHARGE") + dif);
                                 pstm5.setString(2, rs1.getString("MAT"));
                                 pstm5.executeUpdate();
@@ -193,9 +187,14 @@ public class ModeleCoursDB implements DAOCours {
     }
 
     @Override
+    public boolean deleteInfo(Infos i) {
+        return true;
+    }
+
+    @Override
     public Set<Cours> readAll() {
         String req = "select * from api_cours order by code";
-        Set<Cours> lc = new HashSet<>();
+        Set<Cours> lc = new TreeSet<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idcours = rs.getInt("ID_COURS");
@@ -205,11 +204,9 @@ public class ModeleCoursDB implements DAOCours {
                 lc.add(new CoursDB(idcours, code, intitule, nhs));
             }
             return lc;
-
         } catch (Exception ex) {
             System.out.println("error" + ex);
             return lc;
         }
     }
-
 }
