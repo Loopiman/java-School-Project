@@ -109,7 +109,7 @@ public class PresenterEnseignant {
         }
     }
 
-    public void suppressionInfos(Infos i) {
+    protected void suppressionInfos(Infos i) {
         mde.deleteInfo(i);
     }
 

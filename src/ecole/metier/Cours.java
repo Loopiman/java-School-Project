@@ -29,10 +29,13 @@ public class Cours implements Comparable<Cours> {
     protected int nhs;
 
     /**
-     * constructeur par défaut
+     * liste infos
      */
     protected Set<Infos> listeInfos = new HashSet();
 
+    /**
+     * constructeur par défaut
+     */
     public Cours() {
 
     }
@@ -149,11 +152,22 @@ public class Cours implements Comparable<Cours> {
         return true;
     }
 
+    /**
+     * Override compareTo
+     * 
+     * @param c
+     * @return 
+     */
     @Override
     public int compareTo(Cours c) {
         return this.code.compareTo(c.getCode());
     }
 
+    /**
+     * Override toString
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
         return "Cours{" + "code=" + code + ", intitule=" + intitule + ", nhs=" + nhs + '}';

@@ -1,6 +1,5 @@
 package ecole.metier;
 
-
 import java.util.Objects;
 
 /**
@@ -81,6 +80,29 @@ public class Infos {
         this.salle = salle;
     }
 
+    /**
+     * getter de l'enseignant
+     *
+     * @return prof
+     */
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    /**
+     * setter de l'enseignant
+     *
+     * @param prof
+     */
+    public void setEnseignant(Enseignant prof) {
+        this.enseignant = prof;
+    }
+
+    /**
+     * HashCode
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -90,6 +112,12 @@ public class Infos {
         return hash;
     }
 
+    /**
+     * Equals
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -112,26 +140,6 @@ public class Infos {
             return false;
         }
         return true;
-    }
-
-   
-
-    /**
-     * getter de l'enseignant
-     *
-     * @return prof
-     */
-    public Enseignant getEnseignant() {
-        return enseignant;
-    }
-
-    /**
-     * setter de l'enseignant
-     *
-     * @param prof
-     */
-    public void setEnseignant(Enseignant prof) {
-        this.enseignant = prof;
     }
 
     @Override

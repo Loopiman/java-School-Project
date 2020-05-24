@@ -23,6 +23,9 @@ public class Salle implements Comparable<Salle>{
      */
     protected int capacite;
 
+    /**
+     * Liste infos
+     */
     protected Set<Infos> listeInfos = new HashSet();
 
     /**

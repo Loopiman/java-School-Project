@@ -15,24 +15,19 @@ public class Controle {
         boolean ok = false;
         for (int i = 0; i < ph.length(); i++) {
             if (Character.isDigit(ph.charAt(i)) == true) {
-                ok = true;
-            } else {
-                ok = false;
-                break;
+                return true;
             }
         }
-        return ok;
+        return false;
     }
 
     public static boolean verifAlphabet(String ph) {
         boolean ok = false;
 
-        if (ph.matches("[a-zA-Z]+")) {
-            ok = true;
-        } else {
-            ok = false;
+        if(verifInteger(ph)){
+            return false;
         }
-        return ok;
+        return true;
     }
 
     public static boolean verifId(String matricule, String S) {

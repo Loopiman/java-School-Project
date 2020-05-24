@@ -9,7 +9,7 @@ import java.util.*;
  * @see Classe
  *
  */
-public class Classe implements Comparable<Classe>{
+public class Classe implements Comparable<Classe> {
 
     /**
      * identifiant unique de la classe
@@ -31,6 +31,11 @@ public class Classe implements Comparable<Classe>{
      */
     protected int nbrEleves;
 
+    /**
+     * setter de la liste d'infos
+     *
+     * @param listeInfos
+     */
     protected Set<Infos> listeInfos = new HashSet();
 
     /**
@@ -173,12 +178,21 @@ public class Classe implements Comparable<Classe>{
         }
         return true;
     }
-    
+
+    /**
+     * Override compareTo
+     * @param cl
+     * @return 
+     */
     @Override
     public int compareTo(Classe cl) {
         return this.sigleClasse.compareTo(cl.getSigleClasse());
     }
-    
+
+    /**
+     * Override toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "Classe{" + "sigleClasse=" + sigleClasse + ", annee=" + annee + ", specialite=" + specialite + ", nbrEleves=" + nbrEleves + '}';

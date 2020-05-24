@@ -99,22 +99,6 @@ public class GestEcole {
         } while (true);
     }
 
-    public PresenterClasse getPcl() {
-        return pcl;
-    }
-
-    public void setPcl(PresenterClasse pcl) {
-        this.pcl = pcl;
-    }
-
-    public PresenterInfos getPi() {
-        return pi;
-    }
-
-    public void setPi(PresenterInfos pi) {
-        this.pi = pi;
-    }
-
     public static void main(String[] args) {
         int mode = 0;
         do {

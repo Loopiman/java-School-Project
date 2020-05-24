@@ -39,6 +39,9 @@ public class Enseignant implements Comparable<Enseignant> {
      */
     protected int chargeSem;
 
+    /**
+     * nombre d'heures restante par semaine
+     */
     protected int chargeRest;
 
     /**
@@ -51,6 +54,9 @@ public class Enseignant implements Comparable<Enseignant> {
      */
     protected LocalDate dateEngagement;
 
+    /**
+     * liste infos de l'enseignant
+     */
     protected Set<Infos> listeInfos = new HashSet();
 
     /**
@@ -165,18 +171,27 @@ public class Enseignant implements Comparable<Enseignant> {
     }
 
     /**
-     * setter de la chare par semaine
+     * setter de la charge par semaine
      *
      * @param chargeSem
      */
     public void setChargeSem(int chargeSem) {
         this.chargeSem = chargeSem;
     }
-
+    /**
+     * getter de la charge restante par semaine
+     *
+     * @return chargeSem
+     */
     public int getChargeRest() {
         return chargeRest;
     }
 
+    /**
+     * setter de la charge restante par semaine
+     *
+     * @param chargeSem
+     */
     public void setChargeRest(int chargeRest) {
         this.chargeRest = chargeRest;
     }
@@ -217,10 +232,20 @@ public class Enseignant implements Comparable<Enseignant> {
         this.dateEngagement = dateEngagement;
     }
 
+    /**
+     * getter de la liste d'infos
+     * 
+     * @return 
+     */
     public Set<Infos> getListeInfos() {
         return listeInfos;
     }
 
+    /**
+     * setter de la liste d'infos
+     * 
+     * @param listeInfos 
+     */
     public void setListeInfos(Set<Infos> listeInfos) {
         this.listeInfos = listeInfos;
     }
@@ -261,6 +286,12 @@ public class Enseignant implements Comparable<Enseignant> {
         return true;
     }
 
+    /**
+     * override methode compareTo
+     * 
+     * @param e
+     * @return 
+     */
     @Override
     public int compareTo(Enseignant e) {
         return this.matricule.compareTo(e.getMatricule());

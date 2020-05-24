@@ -56,7 +56,7 @@ public class PresenterInfos {
         vues.affAll(mds.readAll());
     }
 
-    public void suppression() {
+    protected void suppression() {
         Infos s = affAll();
         if (s != null) {
             String rep;
