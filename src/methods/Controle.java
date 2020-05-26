@@ -13,11 +13,11 @@ public class Controle {
 
     public static boolean verifInteger(String ph) {
         for (int i = 0; i < ph.length(); i++) {
-            if (Character.isDigit(ph.charAt(i)) == true) {
-                return true;
+            if (Character.isDigit(ph.charAt(i)) == false) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public static boolean verifAlphabet(String ph) {
