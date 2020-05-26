@@ -15,10 +15,7 @@ public class ModeleEnseignant implements DAOEnseignant {
 
     private Set<Enseignant> listeEnseignant = new TreeSet();
     
-    public void init(){
-        Enseignant e = new Enseignant("E1", "Poriaux", "Michel", "0475942239", 6, 6, new BigDecimal("2500"), LocalDate.of(2001,9,10));
-        listeEnseignant.add(e);
-    }
+
 
     @Override
     public Enseignant create(Enseignant e) {

@@ -33,10 +33,7 @@ public class ModeleClasseDB implements DAOClasse {
         dbConnect = DBConnection.getConnection();
     }
 
-    @Override
-    public void init() {
 
-    }
 
     @Override
     public Classe create(Classe obj) {

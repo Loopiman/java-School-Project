@@ -28,10 +28,7 @@ public class ModeleCoursDB implements DAOCours {
         dbConnect = DBConnection.getConnection();
     }
 
-    @Override
-    public void init() {
 
-    }
 
     @Override
     public Cours create(Cours obj) {

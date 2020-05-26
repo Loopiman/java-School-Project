@@ -24,10 +24,7 @@ public class ModeleSalleDB implements DAOSalle {
         dbConnect = DBConnection.getConnection();
     }
 
-    @Override
-    public void init() {
 
-    }
 
     @Override
     public Salle create(Salle obj) {

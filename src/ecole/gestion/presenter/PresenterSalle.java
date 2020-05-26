@@ -26,7 +26,6 @@ public class PresenterSalle {
     public void gestion() {
         do {
             int ch = vues.menu();
-            mds.init();
             switch (ch) {
                 case 1:
                     ajout();

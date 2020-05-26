@@ -26,7 +26,6 @@ public class PresenterEnseignant {
     public void gestion() {
         do {
             int ch = vuee.menu();
-            mde.init();
 
             switch (ch) {
                 case 1:

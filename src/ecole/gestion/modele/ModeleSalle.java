@@ -13,11 +13,6 @@ public class ModeleSalle implements DAOSalle {
 
     private Set<Salle> listeSalle = new TreeSet();
 
-    @Override
-    public void init() {
-        Salle c = new Salle("S1", 8);
-        listeSalle.add(c);
-    }
 
     @Override
     public Salle create(Salle s) {

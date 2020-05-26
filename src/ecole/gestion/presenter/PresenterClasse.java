@@ -33,7 +33,6 @@ public class PresenterClasse {
     public void gestion() {
         do {
             int ch = vuecl.menu();
-            mdcl.init();
             switch (ch) {
                 case 1:
                     ajout();

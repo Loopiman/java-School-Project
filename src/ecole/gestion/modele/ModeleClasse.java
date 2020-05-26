@@ -14,11 +14,7 @@ public class ModeleClasse implements DAOClasse {
 
     private Set<Classe> listeClasse = new TreeSet();
 
-    @Override
-    public void init() {
-        Classe c = new Classe("Cl1", 2020, "info", 10);
-        listeClasse.add(c);
-    }
+
 
     @Override
     public Classe create(Classe cl) {

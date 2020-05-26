@@ -34,9 +34,13 @@ public class Controle {
         String part2;
 
         int length = S.length();
+        int matricule_length = matricule.length();
+        if(matricule.substring(0,matricule_length).length() < length){
+            return false;
+        }
         part1 = matricule.substring(0, length);
         part2 = matricule.substring(length);
-        if (part1.equals(S) && verifInteger(part2) == true) {
+        if (part1.equals(S) && verifAlphabet(part1) && verifInteger(part2) == true) {
             ok = true;
         } else {
             ok = false;

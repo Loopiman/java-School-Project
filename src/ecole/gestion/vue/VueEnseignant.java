@@ -201,7 +201,6 @@ public class VueEnseignant {
         int i = 1;
         List<Enseignant> tri = new ArrayList<>();
         for (Enseignant e : le) {
-            System.out.println(e.toString());
             tri.add(e);
         }
         switch (mode) {

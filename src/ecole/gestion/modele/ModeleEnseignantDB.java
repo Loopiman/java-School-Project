@@ -32,10 +32,6 @@ public class ModeleEnseignantDB implements DAOEnseignant {
         dbConnect = DBConnection.getConnection();
     }
     
-    @Override
-    public void init(){
-        
-    }
 
     @Override
     public Enseignant create(Enseignant obj) {

@@ -26,7 +26,6 @@ public class PresenterCours {
     public void gestion() {
         do {
             int ch = vuec.menu();
-            mdc.init();
             switch (ch) {
                 case 1:
                     ajout();

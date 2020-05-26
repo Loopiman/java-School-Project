@@ -13,11 +13,6 @@ public class ModeleCours implements DAOCours {
 
     private Set<Cours> listeCours = new TreeSet();
 
-    @Override
-    public void init() {
-        Cours c = new Cours("C1", "progra", 2);
-        listeCours.add(c);
-    }
 
     @Override
     public Cours create(Cours c) {

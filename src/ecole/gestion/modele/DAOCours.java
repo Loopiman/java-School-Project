@@ -23,5 +23,4 @@ public interface DAOCours {
     
     boolean deleteInfo(Infos i);
     
-    void init();
 }

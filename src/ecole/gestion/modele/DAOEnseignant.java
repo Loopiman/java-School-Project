@@ -23,6 +23,5 @@ public interface DAOEnseignant {
     
     boolean deleteInfo(Infos i);
     
-    void init();
 
 }

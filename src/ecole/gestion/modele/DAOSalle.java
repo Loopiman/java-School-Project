@@ -23,5 +23,4 @@ public interface DAOSalle {
     
     boolean deleteInfo(Infos i);
     
-    void init();
 }
