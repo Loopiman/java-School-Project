@@ -3,20 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/DAOCours.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/GestEcole.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/methods/Controle.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/presenter/PresenterEnseignant.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/ModeleClasseDB.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/ModeleInfos.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/DAOClasse.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/vue/VueEnseignant.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/presenter/PresenterInfos.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/ModeleCours.java</file>
             <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/presenter/PresenterClasse.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/DAOInfos.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/metier/Cours.java</file>
-            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/ModeleClasse.java</file>
+            <file>file:/C:/Users/fabia/Google%20Drive/Ecole/Bac%202%20Info%20gestion/Q2/Application%20Informatique/Projet/projet/src/ecole/gestion/modele/ModeleSalle.java</file>
         </group>
     </open-files>
 </project-private>

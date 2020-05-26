@@ -15,7 +15,7 @@ public class ModeleSalle implements DAOSalle {
 
     @Override
     public void init() {
-        Salle c = new Salle("S1", 70);
+        Salle c = new Salle("S1", 8);
         listeSalle.add(c);
     }
 

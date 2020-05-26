@@ -84,7 +84,7 @@ public class VueEnseignant {
         } while (!Controle.verifAlphabet(prenom));
 
         do {
-            tel = getMsg("Entrer le telephone :");
+            tel = getMsg("Entrer le telephone sous le format 04xx/xx.xx.xx :");
         } while (!Controle.verifNumero(tel));
 
         do {

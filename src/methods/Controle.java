@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class Controle {
 
     public static boolean verifInteger(String ph) {
-        boolean ok = false;
         for (int i = 0; i < ph.length(); i++) {
             if (Character.isDigit(ph.charAt(i)) == true) {
                 return true;
@@ -22,7 +21,6 @@ public class Controle {
     }
 
     public static boolean verifAlphabet(String ph) {
-        boolean ok = false;
 
         if(verifInteger(ph)){
             return false;
@@ -68,15 +66,25 @@ public class Controle {
 
     public static boolean verifNumero(String tel) {
         boolean ok;
-        if (tel.length() != 10) {
+        if (tel.length() != 13) {
             System.out.println("Numéro invalide");
             ok = false;
         } else {
+            String part1 = tel.substring(0,4);
+            String part2 = tel.substring(5,7);
+            String part3 = tel.substring(8,10);
+            String part4 = tel.substring(11);
+            String char1 = tel.substring(4,5);
+            String char2 = tel.substring(7,8);
+            String char3 = tel.substring(10,11);
+            
+            System.out.println("tel : " + part1+char1+part2+char2+part3+char3+part4);
+            
 
-            if (verifInteger(tel) == true && tel.substring(0, 2).equals("04") == true) {
+            if (verifInteger(part1) && verifInteger(part2) && verifInteger(part3) && verifInteger(part4) && char1.equals("/") && char2.equals(".")&& char3.equals(".") && tel.substring(0, 2).equals("04") == true) {
                 ok = true;
             } else {
-                System.out.println("Veuillez entrez un numéro qui commence par 04");
+                System.out.println("Veuillez entrez un numéro correct");
                 ok = false;
             }
         }
